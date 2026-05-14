@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">Costura</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_explorar">Explorar</string>
+    <string name="nav_calcular">Calcular</string>
+    <string name="nav_subir">Subir</string>
+    <string name="nav_perfil">Perfil</string>
+    <string name="nav_resultados">Resultados</string>
+    <string name="nav_historial">Historial</string>
+    <string name="nav_detalle">Detalle</string>
+
+    <!-- Login -->
+    <string name="login_titulo">Bienvenida a Costura</string>
+    <string name="login_subtitulo">Descubre patrones y comparte tus creaciones</string>
+    <string name="login_boton_google">Continuar con Google</string>
+
+    <!-- Calcular -->
+    <string name="calcular_titulo">¿Cuánta tela tienes?</string>
+    <string name="calcular_ancho_hint">Ancho (cm)</string>
+    <string name="calcular_largo_hint">Largo (cm)</string>
+    <string name="calcular_boton">Ver patrones posibles</string>
+
+    <!-- Resultados -->
+    <string name="resultados_encajan">Patrones que puedes hacer</string>
+    <string name="resultados_no_encajan">Necesitas más tela</string>
+    <string name="resultados_vacio">No se encontraron patrones para estas medidas</string>
+
+    <!-- Subir -->
+    <string name="subir_titulo">Publicar patrón</string>
+    <string name="subir_nombre_hint">Nombre del patrón</string>
+    <string name="subir_descripcion_hint">Descripción</string>
+    <string name="subir_ancho_hint">Ancho mínimo de tela (cm)</string>
+    <string name="subir_largo_hint">Largo mínimo de tela (cm)</string>
+    <string name="subir_tutorial_hint">Enlace a tutorial (opcional)</string>
+    <string name="subir_foto">Añadir foto</string>
+    <string name="subir_pdf">Añadir PDF del patrón</string>
+    <string name="subir_boton">Publicar</string>
+
+    <!-- Categorías -->
+    <string name="categoria_ropa">Ropa</string>
+    <string name="categoria_costura_basica">Costura básica</string>
+    <string name="categoria_hogar">Hogar</string>
+    <string name="categoria_infantil">Infantil</string>
+
+    <!-- Dificultad -->
+    <string name="dificultad_facil">Fácil</string>
+    <string name="dificultad_medio">Medio</string>
+    <string name="dificultad_dificil">Difícil</string>
+
+    <!-- Detalle patrón -->
+    <string name="detalle_medidas">Tela necesaria: %1$.0f × %2$.0f cm</string>
+    <string name="detalle_likes">Me gusta</string>
+    <string name="detalle_comentarios">Comentarios</string>
+    <string name="detalle_tutorial">Ver tutorial</string>
+    <string name="detalle_comentario_hint">Escribe un comentario…</string>
+    <string name="detalle_enviar">Enviar</string>
+
+    <!-- Perfil -->
+    <string name="perfil_mis_patrones">Mis patrones</string>
+    <string name="perfil_historial">Ver historial</string>
+    <string name="perfil_cerrar_sesion">Cerrar sesión</string>
+
+    <!-- Historial -->
+    <string name="historial_titulo">Mis mediciones</string>
+    <string name="historial_vacio">Aún no has calculado ninguna tela</string>
+    <string name="historial_tela">Tela: %1$.0f × %2$.0f cm</string>
+    <string name="historial_patrones">%1$d patrones encajaron</string>
+
+    <!-- Firebase — sustituir por el Web Client ID de Firebase Console -->
+    <string name="default_web_client_id">231009565360-avbtb196eduvjcu2t1fb0sgosgvdu8s7.apps.googleusercontent.com</string>
+
+    <!-- Errores y estados -->
+    <string name="error_campos_vacios">Rellena todos los campos</string>
+    <string name="error_red">Sin conexión. Comprueba tu internet</string>
+    <string name="cargando">Cargando…</string>
+</resources>

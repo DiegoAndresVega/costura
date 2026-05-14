@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "231009565360",
+    "project_id": "costura-30e86",
+    "storage_bucket": "costura-30e86.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231009565360:android:d42a5c4fccf5c2a9bc5975",
+        "android_client_info": {
+          "package_name": "com.example.costura"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk-SfxyvO9uFWvbv9W_1e7T0A15701ypw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

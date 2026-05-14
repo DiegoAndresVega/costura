@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/explorarFragment">
+
+    <fragment
+        android:id="@+id/explorarFragment"
+        android:name="com.example.costura.ui.explorar.ExplorarFragment"
+        android:label="@string/nav_explorar"
+        tools:layout="@layout/fragment_explorar" />
+
+    <fragment
+        android:id="@+id/calcularFragment"
+        android:name="com.example.costura.ui.calcular.CalcularFragment"
+        android:label="@string/nav_calcular"
+        tools:layout="@layout/fragment_calcular">
+        <action
+            android:id="@+id/action_calcular_to_resultados"
+            app:destination="@id/resultadosFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultadosFragment"
+        android:name="com.example.costura.ui.resultados.ResultadosFragment"
+        android:label="@string/nav_resultados"
+        tools:layout="@layout/fragment_resultados" />
+
+    <fragment
+        android:id="@+id/subirFragment"
+        android:name="com.example.costura.ui.subir.SubirFragment"
+        android:label="@string/nav_subir"
+        tools:layout="@layout/fragment_subir" />
+
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.example.costura.ui.perfil.PerfilFragment"
+        android:label="@string/nav_perfil"
+        tools:layout="@layout/fragment_perfil">
+        <action
+            android:id="@+id/action_perfil_to_historial"
+            app:destination="@id/historialFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historialFragment"
+        android:name="com.example.costura.ui.historial.HistorialFragment"
+        android:label="@string/nav_historial"
+        tools:layout="@layout/fragment_historial" />
+
+    <fragment
+        android:id="@+id/detalleFragment"
+        android:name="com.example.costura.ui.detalle.DetalleFragment"
+        android:label="@string/nav_detalle"
+        tools:layout="@layout/fragment_detalle" />
+
+</navigation>

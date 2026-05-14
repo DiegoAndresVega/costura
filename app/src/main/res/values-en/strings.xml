@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Costura</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_explorar">Explore</string>
+    <string name="nav_calcular">Calculate</string>
+    <string name="nav_subir">Upload</string>
+    <string name="nav_perfil">Profile</string>
+    <string name="nav_resultados">Results</string>
+    <string name="nav_historial">History</string>
+    <string name="nav_detalle">Detail</string>
+
+    <!-- Login -->
+    <string name="login_titulo">Welcome to Costura</string>
+    <string name="login_subtitulo">Discover patterns and share your creations</string>
+    <string name="login_boton_google">Continue with Google</string>
+
+    <!-- Calcular -->
+    <string name="calcular_titulo">How much fabric do you have?</string>
+    <string name="calcular_ancho_hint">Width (cm)</string>
+    <string name="calcular_largo_hint">Length (cm)</string>
+    <string name="calcular_boton">See possible patterns</string>
+
+    <!-- Resultados -->
+    <string name="resultados_encajan">Patterns you can make</string>
+    <string name="resultados_no_encajan">You need more fabric</string>
+    <string name="resultados_vacio">No patterns found for these measurements</string>
+
+    <!-- Subir -->
+    <string name="subir_titulo">Publish pattern</string>
+    <string name="subir_nombre_hint">Pattern name</string>
+    <string name="subir_descripcion_hint">Description</string>
+    <string name="subir_ancho_hint">Minimum fabric width (cm)</string>
+    <string name="subir_largo_hint">Minimum fabric length (cm)</string>
+    <string name="subir_tutorial_hint">Tutorial link (optional)</string>
+    <string name="subir_foto">Add photo</string>
+    <string name="subir_pdf">Add pattern PDF</string>
+    <string name="subir_boton">Publish</string>
+
+    <!-- Categorías -->
+    <string name="categoria_ropa">Clothing</string>
+    <string name="categoria_costura_basica">Basic sewing</string>
+    <string name="categoria_hogar">Home</string>
+    <string name="categoria_infantil">Children</string>
+
+    <!-- Dificultad -->
+    <string name="dificultad_facil">Easy</string>
+    <string name="dificultad_medio">Medium</string>
+    <string name="dificultad_dificil">Hard</string>
+
+    <!-- Detalle patrón -->
+    <string name="detalle_medidas">Fabric needed: %1$.0f × %2$.0f cm</string>
+    <string name="detalle_likes">Like</string>
+    <string name="detalle_comentarios">Comments</string>
+    <string name="detalle_tutorial">Watch tutorial</string>
+    <string name="detalle_comentario_hint">Write a comment…</string>
+    <string name="detalle_enviar">Send</string>
+
+    <!-- Perfil -->
+    <string name="perfil_mis_patrones">My patterns</string>
+    <string name="perfil_historial">View history</string>
+    <string name="perfil_cerrar_sesion">Sign out</string>
+
+    <!-- Historial -->
+    <string name="historial_titulo">My measurements</string>
+    <string name="historial_vacio">You haven\'t calculated any fabric yet</string>
+    <string name="historial_tela">Fabric: %1$.0f × %2$.0f cm</string>
+    <string name="historial_patrones">%1$d patterns matched</string>
+
+    <!-- Errores y estados -->
+    <string name="error_campos_vacios">Please fill in all fields</string>
+    <string name="error_red">No connection. Check your internet</string>
+    <string name="cargando">Loading…</string>
+</resources>

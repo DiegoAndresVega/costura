@@ -29,13 +29,11 @@ class ExplorarViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 var query: Query = db.collection("patrones_comunidad")
-                    .orderBy("fechaPublicacion", Query.Direction.DESCENDING)
                     .limit(50)
 
                 if (!categoria.isNullOrEmpty()) {
                     query = db.collection("patrones_comunidad")
                         .whereEqualTo("categoria", categoria)
-                        .orderBy("fechaPublicacion", Query.Direction.DESCENDING)
                         .limit(50)
                 }
 

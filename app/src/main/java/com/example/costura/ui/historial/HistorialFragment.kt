@@ -15,6 +15,7 @@ class HistorialFragment : Fragment() {
     private var _binding: FragmentHistorialBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HistorialViewModel by viewModels()
+    private val adapter = HistorialAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -26,16 +27,12 @@ class HistorialFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvHistorial.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHistorial.adapter = adapter
 
         viewModel.historial.observe(viewLifecycleOwner) { entradas ->
-            if (entradas.isEmpty()) {
-                binding.tvVacio.visibility = View.VISIBLE
-                binding.rvHistorial.visibility = View.GONE
-            } else {
-                binding.tvVacio.visibility = View.GONE
-                binding.rvHistorial.visibility = View.VISIBLE
-                // TODO: conectar adapter
-            }
+            adapter.submitList(entradas)
+            binding.tvVacio.visibility = if (entradas.isEmpty()) View.VISIBLE else View.GONE
+            binding.rvHistorial.visibility = if (entradas.isEmpty()) View.GONE else View.VISIBLE
         }
     }
 

@@ -9,12 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_foto"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fotos"
             android:layout_width="0dp"
-            android:layout_height="240dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="@null"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -27,9 +26,29 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
             android:textAppearance="?attr/textAppearanceHeadlineSmall"
-            app:layout_constraintTop_toBottomOf="@id/iv_foto"
+            app:layout_constraintTop_toBottomOf="@id/rv_fotos"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:checkable="false"
+            app:layout_constraintTop_toBottomOf="@id/tv_nombre"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_dificultad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:checkable="false"
+            app:layout_constraintTop_toBottomOf="@id/tv_nombre"
+            app:layout_constraintStart_toEndOf="@id/chip_categoria" />
 
         <TextView
             android:id="@+id/tv_medidas"
@@ -37,9 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:textAppearance="?attr/textAppearanceBodyMedium"
-            app:layout_constraintTop_toBottomOf="@id/tv_nombre"
+            app:layout_constraintTop_toBottomOf="@id/chip_categoria"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -55,28 +74,70 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_like"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_consejos_titulo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/detalle_likes"
-            app:icon="@android:drawable/btn_star_big_off"
-            app:layout_constraintTop_toBottomOf="@id/tv_descripcion"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_tutorial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/detalle_tutorial"
+            android:text="@string/detalle_consejos"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/tv_descripcion"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_consejos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_consejos_titulo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layout_botones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_consejos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_like"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detalle_likes"
+                app:icon="@android:drawable/btn_star_big_off" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_tutorial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/detalle_tutorial"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/detalle_pdf"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_comentarios_titulo"
@@ -87,7 +148,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/detalle_comentarios"
             android:textAppearance="?attr/textAppearanceTitleMedium"
-            app:layout_constraintTop_toBottomOf="@id/btn_like"
+            app:layout_constraintTop_toBottomOf="@id/layout_botones"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.costura.R
 import com.example.costura.databinding.ItemPatronComunidadBinding
 import com.example.costura.model.PatronComunidad
 
@@ -25,9 +24,10 @@ class PatronComunidadAdapter(
                 .replace("_", " ")
                 .replaceFirstChar { it.uppercase() }
 
-            if (!patron.fotoUrl.isNullOrEmpty()) {
+            val primeraFoto = patron.fotosUrls.firstOrNull()
+            if (!primeraFoto.isNullOrEmpty()) {
                 Glide.with(binding.root)
-                    .load(patron.fotoUrl)
+                    .load(primeraFoto)
                     .placeholder(android.R.color.darker_gray)
                     .into(binding.ivFoto)
             } else {

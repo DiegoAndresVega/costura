@@ -1,14 +1,18 @@
 package com.example.costura.ui.resultados
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.costura.data.local.entity.PatronLocal
 import com.example.costura.databinding.ItemPatronResultadoBinding
 
-class PatronResultadoAdapter : ListAdapter<PatronLocal, PatronResultadoAdapter.ViewHolder>(DIFF) {
+class PatronResultadoAdapter(
+    private val onClick: (PatronLocal) -> Unit = {}
+) : ListAdapter<PatronLocal, PatronResultadoAdapter.ViewHolder>(DIFF) {
 
     inner class ViewHolder(private val binding: ItemPatronResultadoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -20,11 +24,6 @@ class PatronResultadoAdapter : ListAdapter<PatronLocal, PatronResultadoAdapter.V
             binding.tvDescripcion.text = patron.descripcion
             binding.tvDificultad.text = patron.dificultad
 
-            val colorRes = when (patron.dificultad) {
-                "fácil" -> com.google.android.material.R.attr.colorTertiaryContainer
-                "medio" -> com.google.android.material.R.attr.colorSecondaryContainer
-                else -> com.google.android.material.R.attr.colorErrorContainer
-            }
             binding.tvDificultad.setChipBackgroundColorResource(
                 when (patron.dificultad) {
                     "fácil" -> android.R.color.holo_green_light
@@ -32,6 +31,16 @@ class PatronResultadoAdapter : ListAdapter<PatronLocal, PatronResultadoAdapter.V
                     else -> android.R.color.holo_red_light
                 }
             )
+
+            val primeraFoto = patron.imagenAsset.split(",").firstOrNull { it.isNotBlank() }
+            if (!primeraFoto.isNullOrEmpty()) {
+                binding.ivPortada.visibility = View.VISIBLE
+                Glide.with(binding.root).load(primeraFoto).centerCrop().into(binding.ivPortada)
+            } else {
+                binding.ivPortada.visibility = View.GONE
+            }
+
+            binding.root.setOnClickListener { onClick(patron) }
         }
     }
 

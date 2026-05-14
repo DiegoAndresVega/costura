@@ -25,7 +25,22 @@
         android:id="@+id/resultadosFragment"
         android:name="com.example.costura.ui.resultados.ResultadosFragment"
         android:label="@string/nav_resultados"
-        tools:layout="@layout/fragment_resultados" />
+        tools:layout="@layout/fragment_resultados">
+        <action
+            android:id="@+id/action_resultados_to_detalle_local"
+            app:destination="@id/detalleLocalFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detalleLocalFragment"
+        android:name="com.example.costura.ui.detalle.DetalleLocalFragment"
+        android:label="@string/nav_detalle"
+        tools:layout="@layout/fragment_detalle_local">
+        <argument
+            android:name="patronId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
     <fragment
         android:id="@+id/subirFragment"
@@ -53,6 +68,11 @@
         android:id="@+id/detalleFragment"
         android:name="com.example.costura.ui.detalle.DetalleFragment"
         android:label="@string/nav_detalle"
-        tools:layout="@layout/fragment_detalle" />
+        tools:layout="@layout/fragment_detalle">
+        <argument
+            android:name="patronId"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
 
 </navigation>

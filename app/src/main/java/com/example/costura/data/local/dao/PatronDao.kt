@@ -30,6 +30,9 @@ interface PatronDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(patrones: List<PatronLocal>)
 
+    @Query("SELECT * FROM patrones_precargados WHERE id = :id")
+    suspend fun getById(id: Int): PatronLocal?
+
     @Query("SELECT COUNT(*) FROM patrones_precargados")
     suspend fun count(): Int
 }

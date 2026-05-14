@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.costura.R
 import com.example.costura.databinding.FragmentResultadosBinding
 import com.example.costura.viewmodel.ResultadosViewModel
 
@@ -22,8 +25,19 @@ class ResultadosFragment : Fragment() {
         ResultadosViewModel.Factory(requireActivity().application, anchoCm, largoCm)
     }
 
-    private val adapterEncajan = PatronResultadoAdapter()
-    private val adapterNoEncajan = PatronResultadoAdapter()
+    private val adapterEncajan = PatronResultadoAdapter { patron ->
+        findNavController().navigate(
+            R.id.action_resultados_to_detalle_local,
+            bundleOf("patronId" to patron.id)
+        )
+    }
+
+    private val adapterNoEncajan = PatronResultadoAdapter { patron ->
+        findNavController().navigate(
+            R.id.action_resultados_to_detalle_local,
+            bundleOf("patronId" to patron.id)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

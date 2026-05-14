@@ -1,157 +1,359 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/tv_titulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/subir_titulo"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Fotos -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_fotos_preview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/tv_titulo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_foto"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/subir_foto"
+                app:layout_constraintTop_toBottomOf="@id/rv_fotos_preview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Nombre -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_nombre"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/subir_nombre_hint"
+                app:layout_constraintTop_toBottomOf="@id/btn_foto"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Descripción -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_descripcion"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/subir_descripcion_hint"
+                app:layout_constraintTop_toBottomOf="@id/til_nombre"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_descripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="3" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Categoría -->
+            <TextView
+                android:id="@+id/tv_categoria_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/subir_categoria_label"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                app:layout_constraintTop_toBottomOf="@id/til_descripcion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_categoria"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:singleSelection="true"
+                app:layout_constraintTop_toBottomOf="@id/tv_categoria_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_ropa"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categoria_ropa" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_costura_basica"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categoria_costura_basica" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_hogar"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categoria_hogar" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_infantil"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categoria_infantil" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Dificultad -->
+            <TextView
+                android:id="@+id/tv_dificultad_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/subir_dificultad_label"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                app:layout_constraintTop_toBottomOf="@id/chip_group_categoria"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_dificultad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:singleSelection="true"
+                app:layout_constraintTop_toBottomOf="@id/tv_dificultad_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_facil"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dificultad_facil" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_medio"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dificultad_medio" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_dificil"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dificultad_dificil" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Medidas -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_ancho"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/subir_ancho_hint"
+                app:layout_constraintTop_toBottomOf="@id/chip_group_dificultad"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/til_largo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_ancho"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionNext" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_largo"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:hint="@string/subir_largo_hint"
+                app:layout_constraintTop_toBottomOf="@id/chip_group_dificultad"
+                app:layout_constraintStart_toEndOf="@id/til_ancho"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_largo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:imeOptions="actionNext" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Consejos (opcional) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_consejos"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/subir_consejos_hint"
+                app:layout_constraintTop_toBottomOf="@id/til_ancho"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_consejos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="2" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Tutorial (opcional) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_tutorial"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/subir_tutorial_hint"
+                app:layout_constraintTop_toBottomOf="@id/til_consejos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_tutorial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri"
+                    android:imeOptions="actionDone" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- PDF (opcional) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pdf"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/subir_pdf"
+                app:layout_constraintTop_toBottomOf="@id/til_tutorial"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_pdf_nombre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/btn_pdf"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Publicar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_publicar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/subir_boton"
+                app:layout_constraintTop_toBottomOf="@id/tv_pdf_nombre"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layout_exito"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:background="?attr/colorSurface"
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/tv_titulo"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/subir_titulo"
-            android:textAppearance="?attr/textAppearanceHeadlineSmall"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="✅"
+            android:textSize="64sp" />
 
-        <ImageView
-            android:id="@+id/iv_foto"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:background="?attr/colorSurfaceVariant"
-            android:contentDescription="@string/subir_foto"
-            app:layout_constraintTop_toBottomOf="@id/tv_titulo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:gravity="center"
+            android:text="@string/subir_exito"
+            android:textAppearance="?attr/textAppearanceTitleLarge" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_foto"
+            android:id="@+id/btn_ir_explorar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/subir_ir_explorar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_publicar_otro"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/subir_foto"
-            app:layout_constraintTop_toBottomOf="@id/iv_foto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="@string/subir_publicar_otro" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_nombre"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/subir_nombre_hint"
-            app:layout_constraintTop_toBottomOf="@id/btn_foto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+    </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_nombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionNext" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_descripcion"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/subir_descripcion_hint"
-            app:layout_constraintTop_toBottomOf="@id/til_nombre"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:minLines="3" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_ancho"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/subir_ancho_hint"
-            app:layout_constraintTop_toBottomOf="@id/til_descripcion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_ancho"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionNext" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_largo"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/subir_largo_hint"
-            app:layout_constraintTop_toBottomOf="@id/til_ancho"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_largo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionNext" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_tutorial"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/subir_tutorial_hint"
-            app:layout_constraintTop_toBottomOf="@id/til_largo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_tutorial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textUri"
-                android:imeOptions="actionDone" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_publicar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/subir_boton"
-            app:layout_constraintTop_toBottomOf="@id/til_tutorial"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</FrameLayout>

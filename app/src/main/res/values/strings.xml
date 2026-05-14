@@ -70,6 +70,22 @@
     <!-- Firebase — sustituir por el Web Client ID de Firebase Console -->
     <string name="default_web_client_id">231009565360-avbtb196eduvjcu2t1fb0sgosgvdu8s7.apps.googleusercontent.com</string>
 
+    <!-- Detalle -->
+    <string name="detalle_pdf">Descargar patrón (PDF)</string>
+    <string name="detalle_consejos">💡 Consejos</string>
+
+    <!-- Subir — nuevos -->
+    <string name="subir_categoria_label">Categoría *</string>
+    <string name="subir_dificultad_label">Dificultad *</string>
+    <string name="subir_consejos_hint">Consejos (opcional)</string>
+    <string name="subir_foto_cambiar">%1$d foto(s) seleccionada(s) — cambiar</string>
+    <string name="subir_exito">¡Patrón publicado correctamente!</string>
+    <string name="subir_ir_explorar">Ir a Explorar</string>
+    <string name="subir_publicar_otro">Publicar otro</string>
+    <string name="subir_foto_requerida">Añade al menos una foto</string>
+    <string name="subir_categoria_requerida">Selecciona una categoría</string>
+    <string name="subir_dificultad_requerida">Selecciona la dificultad</string>
+
     <!-- Errores y estados -->
     <string name="error_campos_vacios">Rellena todos los campos</string>
     <string name="error_red">Sin conexión. Comprueba tu internet</string>

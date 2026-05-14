@@ -30,12 +30,22 @@
     <string name="subir_titulo">Publish pattern</string>
     <string name="subir_nombre_hint">Pattern name</string>
     <string name="subir_descripcion_hint">Description</string>
-    <string name="subir_ancho_hint">Minimum fabric width (cm)</string>
-    <string name="subir_largo_hint">Minimum fabric length (cm)</string>
+    <string name="subir_ancho_hint">Min. fabric width (cm)</string>
+    <string name="subir_largo_hint">Min. fabric length (cm)</string>
     <string name="subir_tutorial_hint">Tutorial link (optional)</string>
-    <string name="subir_foto">Add photo</string>
-    <string name="subir_pdf">Add pattern PDF</string>
+    <string name="subir_foto">Add photos</string>
+    <string name="subir_pdf">Add pattern PDF (optional)</string>
     <string name="subir_boton">Publish</string>
+    <string name="subir_categoria_label">Category *</string>
+    <string name="subir_dificultad_label">Difficulty *</string>
+    <string name="subir_consejos_hint">Tips (optional)</string>
+    <string name="subir_foto_cambiar">%1$d photo(s) selected — change</string>
+    <string name="subir_exito">Pattern published successfully!</string>
+    <string name="subir_foto_requerida">Add at least one photo</string>
+    <string name="subir_categoria_requerida">Select a category</string>
+    <string name="subir_dificultad_requerida">Select a difficulty level</string>
+    <string name="subir_ir_explorar">Go to Explore</string>
+    <string name="subir_publicar_otro">Publish another</string>
 
     <!-- Categorías -->
     <string name="categoria_ropa">Clothing</string>
@@ -55,6 +65,8 @@
     <string name="detalle_tutorial">Watch tutorial</string>
     <string name="detalle_comentario_hint">Write a comment…</string>
     <string name="detalle_enviar">Send</string>
+    <string name="detalle_pdf">Download pattern (PDF)</string>
+    <string name="detalle_consejos">💡 Tips</string>
 
     <!-- Perfil -->
     <string name="perfil_mis_patrones">My patterns</string>

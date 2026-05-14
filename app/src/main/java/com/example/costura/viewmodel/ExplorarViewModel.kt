@@ -3,12 +3,10 @@ package com.example.costura.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.costura.model.PatronComunidad
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 class ExplorarViewModel : ViewModel() {
 
@@ -20,32 +18,34 @@ class ExplorarViewModel : ViewModel() {
     private val _cargando = MutableLiveData(false)
     val cargando: LiveData<Boolean> = _cargando
 
+    private var listener: ListenerRegistration? = null
+
     init {
-        cargarPatrones()
+        escucharPatrones()
     }
 
-    fun cargarPatrones(categoria: String? = null) {
+    fun escucharPatrones(categoria: String? = null) {
+        listener?.remove()
         _cargando.value = true
-        viewModelScope.launch {
-            try {
-                var query: Query = db.collection("patrones_comunidad")
-                    .limit(50)
 
-                if (!categoria.isNullOrEmpty()) {
-                    query = db.collection("patrones_comunidad")
-                        .whereEqualTo("categoria", categoria)
-                        .limit(50)
-                }
+        var query: Query = db.collection("patrones_comunidad").limit(50)
+        if (!categoria.isNullOrEmpty()) {
+            query = db.collection("patrones_comunidad")
+                .whereEqualTo("categoria", categoria)
+                .limit(50)
+        }
 
-                val snapshot = query.get().await()
-                val lista = snapshot.documents.mapNotNull { doc ->
-                    doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
-                }
-                _patrones.value = lista
-            } catch (_: Exception) {
-            } finally {
-                _cargando.value = false
+        listener = query.addSnapshotListener { snapshot, _ ->
+            _cargando.value = false
+            snapshot ?: return@addSnapshotListener
+            _patrones.value = snapshot.documents.mapNotNull { doc ->
+                doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        listener?.remove()
     }
 }

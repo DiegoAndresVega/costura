@@ -14,15 +14,12 @@ import java.time.format.DateTimeFormatter
 
 class HistorialAdapter : ListAdapter<HistorialMedicion, HistorialAdapter.ViewHolder>(DIFF) {
 
-    private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-        .withZone(ZoneId.systemDefault())
-
     inner class ViewHolder(private val binding: ItemHistorialBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(medicion: HistorialMedicion) {
             binding.tvFecha.text = try {
-                formatter.format(Instant.parse(medicion.fecha))
+                FORMATTER.format(Instant.parse(medicion.fecha))
             } catch (_: Exception) {
                 medicion.fecha.take(10)
             }
@@ -47,6 +44,9 @@ class HistorialAdapter : ListAdapter<HistorialMedicion, HistorialAdapter.ViewHol
     }
 
     companion object {
+        private val FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+            .withZone(ZoneId.systemDefault())
+
         private val DIFF = object : DiffUtil.ItemCallback<HistorialMedicion>() {
             override fun areItemsTheSame(a: HistorialMedicion, b: HistorialMedicion) = a.id == b.id
             override fun areContentsTheSame(a: HistorialMedicion, b: HistorialMedicion) = a == b

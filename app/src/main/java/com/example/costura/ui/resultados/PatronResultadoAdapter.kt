@@ -26,9 +26,9 @@ class PatronResultadoAdapter(
 
             binding.tvDificultad.setChipBackgroundColorResource(
                 when (patron.dificultad) {
-                    "fácil" -> android.R.color.holo_green_light
-                    "medio" -> android.R.color.holo_orange_light
-                    else -> android.R.color.holo_red_light
+                    "fácil" -> R.color.dificultad_facil
+                    "medio" -> R.color.dificultad_medio
+                    else -> R.color.dificultad_dificil
                 }
             )
 

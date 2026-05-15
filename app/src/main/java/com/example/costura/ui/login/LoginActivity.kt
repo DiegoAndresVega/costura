@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                 manejarCredencial(result.credential)
             } catch (e: GetCredentialException) {
                 setCargando(false)
-                Snackbar.make(binding.root, "Error al iniciar sesión: ${e.message}", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, getString(R.string.login_error_sesion, e.message), Snackbar.LENGTH_LONG).show()
             }
         }
     }
@@ -95,11 +95,11 @@ class LoginActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { e ->
                     setCargando(false)
-                    Snackbar.make(binding.root, "Error de autenticación: ${e.message}", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.root, getString(R.string.login_error_auth, e.message), Snackbar.LENGTH_LONG).show()
                 }
         } else {
             setCargando(false)
-            Snackbar.make(binding.root, "Tipo de credencial no soportado", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, R.string.login_error_credencial, Snackbar.LENGTH_SHORT).show()
         }
     }
 

@@ -86,6 +86,11 @@
     <string name="subir_categoria_requerida">Selecciona una categoría</string>
     <string name="subir_dificultad_requerida">Selecciona la dificultad</string>
 
+    <!-- Login — errores -->
+    <string name="login_error_sesion">Error al iniciar sesión: %1$s</string>
+    <string name="login_error_auth">Error de autenticación: %1$s</string>
+    <string name="login_error_credencial">Tipo de credencial no soportado</string>
+
     <!-- Errores y estados -->
     <string name="error_campos_vacios">Rellena todos los campos</string>
     <string name="error_red">Sin conexión. Comprueba tu internet</string>

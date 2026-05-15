@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.costura.data.local.entity.PatronLocal
+import com.example.costura.R
 import com.example.costura.databinding.ItemPatronResultadoBinding
 
 class PatronResultadoAdapter(

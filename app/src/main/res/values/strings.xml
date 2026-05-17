@@ -58,6 +58,7 @@
 
     <!-- Perfil -->
     <string name="perfil_mis_patrones">Mis patrones</string>
+    <string name="perfil_guardados">Guardados</string>
     <string name="perfil_historial">Ver historial</string>
     <string name="perfil_cerrar_sesion">Cerrar sesión</string>
 

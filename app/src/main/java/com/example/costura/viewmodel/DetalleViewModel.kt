@@ -27,9 +27,29 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
     private val _liked = MutableLiveData(false)
     val liked: LiveData<Boolean> = _liked
 
+    private val _guardado = MutableLiveData(false)
+    val guardado: LiveData<Boolean> = _guardado
+
     init {
         cargarPatron()
         cargarComentarios()
+        cargarEstadoLike()
+        cargarEstadoGuardado()
+    }
+
+    private fun cargarEstadoLike() {
+        val uid = auth.currentUser?.uid ?: return
+        viewModelScope.launch {
+            try {
+                val doc = db.collection("patrones_comunidad")
+                    .document(patronId)
+                    .collection("likes")
+                    .document(uid)
+                    .get()
+                    .await()
+                _liked.value = doc.exists()
+            } catch (_: Exception) { }
+        }
     }
 
     private fun cargarPatron() {
@@ -55,16 +75,46 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
             }
     }
 
-    fun toggleLike() {
-        val user = auth.currentUser ?: return
-        val ref = db.collection("patrones_comunidad").document(patronId)
-        val delta = if (_liked.value == true) -1L else 1L
-        _liked.value = !(_liked.value ?: false)
+    private fun cargarEstadoGuardado() {
+        val uid = auth.currentUser?.uid ?: return
         viewModelScope.launch {
             try {
-                ref.update("likes", FieldValue.increment(delta)).await()
+                val doc = db.collection("usuarios").document(uid)
+                    .collection("guardados").document(patronId).get().await()
+                _guardado.value = doc.exists()
+            } catch (_: Exception) { }
+        }
+    }
+
+    fun toggleGuardado() {
+        val uid = auth.currentUser?.uid ?: return
+        val ref = db.collection("usuarios").document(uid)
+            .collection("guardados").document(patronId)
+        val eraGuardado = _guardado.value == true
+        _guardado.value = !eraGuardado
+        viewModelScope.launch {
+            try {
+                if (eraGuardado) ref.delete().await()
+                else ref.set(mapOf("fechaGuardado" to com.google.firebase.Timestamp.now())).await()
             } catch (_: Exception) {
-                _liked.value = !(_liked.value ?: false)
+                _guardado.value = eraGuardado
+            }
+        }
+    }
+
+    fun toggleLike() {
+        val user = auth.currentUser ?: return
+        val patronRef = db.collection("patrones_comunidad").document(patronId)
+        val likeRef = patronRef.collection("likes").document(user.uid)
+        val eraLiked = _liked.value == true
+        _liked.value = !eraLiked
+        viewModelScope.launch {
+            try {
+                if (eraLiked) likeRef.delete().await()
+                else likeRef.set(mapOf("uid" to user.uid)).await()
+                patronRef.update("likes", FieldValue.increment(if (eraLiked) -1L else 1L)).await()
+            } catch (_: Exception) {
+                _liked.value = eraLiked
             }
         }
     }

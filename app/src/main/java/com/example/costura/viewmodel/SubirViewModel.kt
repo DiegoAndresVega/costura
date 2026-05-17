@@ -80,6 +80,7 @@ class SubirViewModel : ViewModel() {
                 val patron = PatronComunidad(
                     uidAutor = user.uid,
                     nombreAutor = user.displayName ?: "",
+                    fotoAutorUrl = user.photoUrl?.toString(),
                     nombre = nombre,
                     descripcion = descripcion,
                     categoria = categoria,

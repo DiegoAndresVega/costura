@@ -19,12 +19,15 @@ class ExplorarFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: ExplorarViewModel by viewModels()
 
-    private val adapter = PatronComunidadAdapter { patron ->
-        findNavController().navigate(
-            R.id.detalleFragment,
-            bundleOf("patronId" to patron.id)
-        )
-    }
+    private val adapter = PatronComunidadAdapter(
+        onClick = { patron ->
+            findNavController().navigate(
+                R.id.detalleFragment,
+                bundleOf("patronId" to patron.id)
+            )
+        },
+        onGuardar = { patronId -> viewModel.toggleGuardado(patronId) }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -48,6 +51,9 @@ class ExplorarFragment : Fragment() {
         }
         viewModel.cargando.observe(viewLifecycleOwner) { cargando ->
             binding.progress.visibility = if (cargando) View.VISIBLE else View.GONE
+        }
+        viewModel.savedIds.observe(viewLifecycleOwner) { ids ->
+            adapter.updateSavedIds(ids)
         }
     }
 

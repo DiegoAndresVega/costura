@@ -102,6 +102,34 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
+            android:id="@+id/layout_autor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_consejos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_avatar_autor"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.Badge.Circle" />
+
+            <TextView
+                android:id="@+id/tv_nombre_autor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layout_botones"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -109,7 +137,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/tv_consejos"
+            app:layout_constraintTop_toBottomOf="@id/layout_autor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -120,6 +148,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detalle_likes"
                 app:icon="@android:drawable/btn_star_big_off" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_guardar"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/perfil_guardados"
+                app:icon="@drawable/ic_bookmark_outline" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_tutorial"

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.costura.R
 import com.example.costura.databinding.FragmentDetalleBinding
 import com.example.costura.ui.common.FotosAdapter
@@ -78,6 +79,17 @@ class DetalleFragment : Fragment() {
                 binding.tvConsejos.text = patron.consejos
             }
 
+            binding.tvNombreAutor.text = patron.nombreAutor
+            if (!patron.fotoAutorUrl.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(patron.fotoAutorUrl)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_person)
+                    .into(binding.imgAvatarAutor)
+            } else {
+                binding.imgAvatarAutor.setImageResource(R.drawable.ic_person)
+            }
+
             if (!patron.tutorialUrl.isNullOrEmpty()) {
                 binding.btnTutorial.visibility = View.VISIBLE
                 binding.btnTutorial.setOnClickListener {
@@ -104,7 +116,14 @@ class DetalleFragment : Fragment() {
             )
         }
 
+        viewModel.guardado.observe(viewLifecycleOwner) { guardado ->
+            binding.btnGuardar.setIconResource(
+                if (guardado) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark_outline
+            )
+        }
+
         binding.btnLike.setOnClickListener { viewModel.toggleLike() }
+        binding.btnGuardar.setOnClickListener { viewModel.toggleGuardado() }
 
         binding.btnEnviar.setOnClickListener {
             val texto = binding.etComentario.text?.toString()?.trim()

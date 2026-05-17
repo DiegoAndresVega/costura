@@ -24,10 +24,11 @@ class PerfilFragment : Fragment() {
     private val viewModel: PerfilViewModel by viewModels()
 
     private val misPatronesAdapter = PatronComunidadAdapter { patron ->
-        findNavController().navigate(
-            R.id.detalleFragment,
-            bundleOf("patronId" to patron.id)
-        )
+        findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
+    }
+
+    private val guardadosAdapter = PatronComunidadAdapter { patron ->
+        findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
     }
 
     override fun onCreateView(
@@ -42,6 +43,9 @@ class PerfilFragment : Fragment() {
 
         binding.rvMisPatrones.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMisPatrones.adapter = misPatronesAdapter
+
+        binding.rvGuardados.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvGuardados.adapter = guardadosAdapter
 
         binding.btnHistorial.setOnClickListener {
             findNavController().navigate(R.id.action_perfil_to_historial)
@@ -71,6 +75,11 @@ class PerfilFragment : Fragment() {
         viewModel.misPatrones.observe(viewLifecycleOwner) { patrones ->
             misPatronesAdapter.submitList(patrones)
             binding.tvMisPatrones.visibility = if (patrones.isEmpty()) View.GONE else View.VISIBLE
+        }
+
+        viewModel.guardados.observe(viewLifecycleOwner) { patrones ->
+            guardadosAdapter.submitList(patrones)
+            binding.tvGuardados.visibility = if (patrones.isEmpty()) View.GONE else View.VISIBLE
         }
     }
 

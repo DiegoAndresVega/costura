@@ -69,6 +69,17 @@
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="10dp"
             android:textSize="11sp"
+            app:layout_constraintEnd_toStartOf="@id/btn_guardar"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_guardar"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            app:icon="@drawable/ic_bookmark_outline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 

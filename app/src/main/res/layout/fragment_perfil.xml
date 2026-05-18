@@ -10,17 +10,19 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
+        <!-- Avatar -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_avatar"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginTop="24dp"
-            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
             android:scaleType="centerCrop"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Nombre efectivo -->
         <TextView
             android:id="@+id/tv_nombre"
             android:layout_width="0dp"
@@ -32,6 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Email -->
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="0dp"
@@ -43,17 +46,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Bio (oculta si vacía) -->
+        <TextView
+            android:id="@+id/tv_bio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Chip nivel (oculto si vacío) -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_nivel"
+            style="@style/Widget.Material3.Chip.Assist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_bio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Botón editar perfil -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_editar_perfil"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/perfil_editar"
+            app:icon="@android:drawable/ic_menu_edit"
+            app:layout_constraintTop_toBottomOf="@id/chip_nivel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Historial -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_historial"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="12dp"
             android:text="@string/perfil_historial"
-            app:layout_constraintTop_toBottomOf="@id/tv_email"
+            app:layout_constraintTop_toBottomOf="@id/btn_editar_perfil"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Cerrar sesión -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cerrar_sesion"
             style="@style/Widget.Material3.Button.TonalButton"
@@ -65,6 +110,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Mis patrones -->
         <TextView
             android:id="@+id/tv_mis_patrones"
             android:layout_width="0dp"
@@ -72,6 +118,7 @@
             android:layout_marginTop="32dp"
             android:text="@string/perfil_mis_patrones"
             android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/btn_cerrar_sesion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -86,6 +133,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Guardados -->
         <TextView
             android:id="@+id/tv_guardados"
             android:layout_width="0dp"

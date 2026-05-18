@@ -3,6 +3,7 @@ package com.example.costura.ui.resultados
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,13 +26,13 @@ class PatronResultadoAdapter(
             binding.tvDescripcion.text = patron.descripcion
             binding.tvDificultad.text = patron.dificultad
 
-            binding.tvDificultad.setChipBackgroundColorResource(
-                when (patron.dificultad) {
-                    "fácil" -> R.color.dificultad_facil
-                    "medio" -> R.color.dificultad_medio
-                    else -> R.color.dificultad_dificil
-                }
-            )
+            val (bgColor, textColor) = when (patron.dificultad) {
+                "fácil" -> Pair(R.color.dificultad_facil, R.color.dificultad_facil_text)
+                "medio" -> Pair(R.color.dificultad_medio, R.color.dificultad_medio_text)
+                else -> Pair(R.color.dificultad_dificil, R.color.dificultad_dificil_text)
+            }
+            binding.tvDificultad.setChipBackgroundColorResource(bgColor)
+            binding.tvDificultad.setTextColor(ContextCompat.getColor(binding.root.context, textColor))
 
             val primeraFoto = patron.imagenAsset.split(",").firstOrNull { it.isNotBlank() }
             if (!primeraFoto.isNullOrEmpty()) {

@@ -118,7 +118,7 @@
                 android:id="@+id/img_avatar_autor"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.Badge.Circle" />
+                app:shapeAppearanceOverlay="@style/ShapeCircle" />
 
             <TextView
                 android:id="@+id/tv_nombre_autor"

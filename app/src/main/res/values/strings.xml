@@ -61,6 +61,17 @@
     <string name="perfil_guardados">Guardados</string>
     <string name="perfil_historial">Ver historial</string>
     <string name="perfil_cerrar_sesion">Cerrar sesión</string>
+    <string name="perfil_editar">Editar perfil</string>
+    <string name="perfil_cambiar_foto">Cambiar foto</string>
+    <string name="perfil_nombre_hint">Nombre visible para los demás</string>
+    <string name="perfil_bio_hint">Cuéntanos algo sobre ti…</string>
+    <string name="perfil_nivel_label">Nivel de costura</string>
+    <string name="perfil_nivel_principiante">Principiante</string>
+    <string name="perfil_nivel_intermedio">Intermedio</string>
+    <string name="perfil_nivel_avanzado">Avanzado</string>
+    <string name="perfil_guardar_cambios">Guardar cambios</string>
+    <string name="perfil_guardado_ok">Perfil actualizado</string>
+    <string name="perfil_guardado_error">No se pudo guardar. Inténtalo de nuevo</string>
 
     <!-- Historial -->
     <string name="historial_titulo">Mis mediciones</string>

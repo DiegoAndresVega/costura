@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -50,8 +51,14 @@ class DetalleLocalFragment : Fragment() {
             binding.chipCategoria.text = patron.categoria
                 .replace("_", " ")
                 .replaceFirstChar { it.uppercase() }
-            binding.chipDificultad.text = patron.dificultad
-                .replaceFirstChar { it.uppercase() }
+            binding.chipDificultad.text = patron.dificultad.replaceFirstChar { it.uppercase() }
+            val (bgColor, textColor) = when (patron.dificultad.lowercase()) {
+                "fácil" -> Pair(R.color.dificultad_facil, R.color.dificultad_facil_text)
+                "medio" -> Pair(R.color.dificultad_medio, R.color.dificultad_medio_text)
+                else -> Pair(R.color.dificultad_dificil, R.color.dificultad_dificil_text)
+            }
+            binding.chipDificultad.setChipBackgroundColorResource(bgColor)
+            binding.chipDificultad.setTextColor(ContextCompat.getColor(requireContext(), textColor))
             binding.tvMedidas.text = getString(
                 R.string.detalle_medidas, patron.anchoCm, patron.largoCm
             )

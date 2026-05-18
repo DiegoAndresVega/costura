@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <!-- Bosque · verde oscuro + cream + acento sage -->
+    <!-- Bosque · mismo contenido que values/colors.xml (tema único forzado) -->
     <color name="md_primary">#B3D4A3</color>
     <color name="md_on_primary">#161E16</color>
     <color name="md_primary_container">#2F4232</color>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.costura.R
 import com.example.costura.databinding.FragmentPerfilBinding
+import com.example.costura.model.Usuario
 import com.example.costura.ui.explorar.PatronComunidadAdapter
 import com.example.costura.ui.login.LoginActivity
 import com.example.costura.viewmodel.PerfilViewModel
@@ -23,13 +24,17 @@ class PerfilFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: PerfilViewModel by viewModels()
 
-    private val misPatronesAdapter = PatronComunidadAdapter { patron ->
-        findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
-    }
+    private val misPatronesAdapter = PatronComunidadAdapter(
+        onClick = { patron ->
+            findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
+        }
+    )
 
-    private val guardadosAdapter = PatronComunidadAdapter { patron ->
-        findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
-    }
+    private val guardadosAdapter = PatronComunidadAdapter(
+        onClick = { patron ->
+            findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,6 +52,10 @@ class PerfilFragment : Fragment() {
         binding.rvGuardados.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGuardados.adapter = guardadosAdapter
 
+        binding.btnEditarPerfil.setOnClickListener {
+            findNavController().navigate(R.id.action_perfil_to_editar)
+        }
+
         binding.btnHistorial.setOnClickListener {
             findNavController().navigate(R.id.action_perfil_to_historial)
         }
@@ -55,21 +64,13 @@ class PerfilFragment : Fragment() {
             viewModel.cerrarSesion()
         }
 
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
         viewModel.usuario.observe(viewLifecycleOwner) { usuario ->
             if (usuario == null) {
                 startActivity(Intent(requireContext(), LoginActivity::class.java))
                 requireActivity().finish()
                 return@observe
             }
-            binding.tvNombre.text = usuario.nombreUsuario
-            binding.tvEmail.text = usuario.email
-            if (!usuario.fotoUrl.isNullOrEmpty()) {
-                Glide.with(this).load(usuario.fotoUrl).circleCrop().into(binding.ivAvatar)
-            }
+            mostrarUsuario(usuario)
         }
 
         viewModel.misPatrones.observe(viewLifecycleOwner) { patrones ->
@@ -80,6 +81,45 @@ class PerfilFragment : Fragment() {
         viewModel.guardados.observe(viewLifecycleOwner) { patrones ->
             guardadosAdapter.submitList(patrones)
             binding.tvGuardados.visibility = if (patrones.isEmpty()) View.GONE else View.VISIBLE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.recargar()
+    }
+
+    private fun mostrarUsuario(usuario: Usuario) {
+        binding.tvNombre.text = usuario.nombreEfectivo
+        binding.tvEmail.text = usuario.email
+
+        val foto = usuario.fotoEfectiva
+        if (!foto.isNullOrEmpty()) {
+            Glide.with(this).load(foto).circleCrop()
+                .placeholder(R.drawable.ic_person)
+                .into(binding.ivAvatar)
+        } else {
+            binding.ivAvatar.setImageResource(R.drawable.ic_person)
+        }
+
+        if (usuario.bio.isNotBlank()) {
+            binding.tvBio.text = usuario.bio
+            binding.tvBio.visibility = View.VISIBLE
+        } else {
+            binding.tvBio.visibility = View.GONE
+        }
+
+        if (usuario.nivelCostura.isNotBlank()) {
+            val nivelTexto = when (usuario.nivelCostura) {
+                "principiante" -> getString(R.string.perfil_nivel_principiante)
+                "intermedio" -> getString(R.string.perfil_nivel_intermedio)
+                "avanzado" -> getString(R.string.perfil_nivel_avanzado)
+                else -> usuario.nivelCostura
+            }
+            binding.chipNivel.text = nivelTexto
+            binding.chipNivel.visibility = View.VISIBLE
+        } else {
+            binding.chipNivel.visibility = View.GONE
         }
     }
 

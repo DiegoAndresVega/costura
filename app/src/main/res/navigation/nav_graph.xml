@@ -56,7 +56,16 @@
         <action
             android:id="@+id/action_perfil_to_historial"
             app:destination="@id/historialFragment" />
+        <action
+            android:id="@+id/action_perfil_to_editar"
+            app:destination="@id/editarPerfilFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/editarPerfilFragment"
+        android:name="com.example.costura.ui.perfil.EditarPerfilFragment"
+        android:label="@string/perfil_editar"
+        tools:layout="@layout/fragment_editar_perfil" />
 
     <fragment
         android:id="@+id/historialFragment"

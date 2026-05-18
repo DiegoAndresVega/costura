@@ -30,47 +30,62 @@ class PerfilViewModel : ViewModel() {
         cargarUsuario()
     }
 
+    fun recargar() {
+        cargarUsuario()
+    }
+
     private fun cargarUsuario() {
         val firebaseUser = auth.currentUser ?: return
+        // Datos inmediatos desde Auth mientras carga Firestore
         _usuario.value = Usuario(
             uid = firebaseUser.uid,
             nombreUsuario = firebaseUser.displayName ?: "",
             email = firebaseUser.email ?: "",
             fotoUrl = firebaseUser.photoUrl?.toString()
         )
-        cargarMisPatrones(firebaseUser.uid)
-        cargarGuardados(firebaseUser.uid)
-    }
-
-    private fun cargarMisPatrones(uid: String) {
         viewModelScope.launch {
             try {
-                val snapshot = db.collection("patrones_comunidad")
-                    .whereEqualTo("uidAutor", uid)
-                    .get()
-                    .await()
-                _misPatrones.value = snapshot.documents.mapNotNull { doc ->
-                    doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
-                }
+                val doc = db.collection("usuarios").document(firebaseUser.uid).get().await()
+                _usuario.value = Usuario(
+                    uid = firebaseUser.uid,
+                    nombreUsuario = firebaseUser.displayName ?: "",
+                    email = firebaseUser.email ?: "",
+                    fotoUrl = firebaseUser.photoUrl?.toString(),
+                    nombreMostrado = doc.getString("nombreMostrado") ?: "",
+                    bio = doc.getString("bio") ?: "",
+                    nivelCostura = doc.getString("nivelCostura") ?: "",
+                    fotoPerfilUrl = doc.getString("fotoPerfilUrl")
+                )
             } catch (_: Exception) { }
+
+            cargarMisPatrones(firebaseUser.uid)
+            cargarGuardados(firebaseUser.uid)
         }
     }
 
-    private fun cargarGuardados(uid: String) {
-        viewModelScope.launch {
-            try {
-                val guardadosSnapshot = db.collection("usuarios").document(uid)
-                    .collection("guardados").get().await()
-                val ids = guardadosSnapshot.documents.map { it.id }
-                if (ids.isEmpty()) { _guardados.value = emptyList(); return@launch }
-                val patronesSnapshot = db.collection("patrones_comunidad")
-                    .whereIn(FieldPath.documentId(), ids)
-                    .get().await()
-                _guardados.value = patronesSnapshot.documents.mapNotNull { doc ->
-                    doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
-                }
-            } catch (_: Exception) { }
-        }
+    private suspend fun cargarMisPatrones(uid: String) {
+        try {
+            val snapshot = db.collection("patrones_comunidad")
+                .whereEqualTo("uidAutor", uid)
+                .get().await()
+            _misPatrones.value = snapshot.documents.mapNotNull { doc ->
+                doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
+            }
+        } catch (_: Exception) { }
+    }
+
+    private suspend fun cargarGuardados(uid: String) {
+        try {
+            val guardadosSnapshot = db.collection("usuarios").document(uid)
+                .collection("guardados").get().await()
+            val ids = guardadosSnapshot.documents.map { it.id }
+            if (ids.isEmpty()) { _guardados.value = emptyList(); return }
+            val patronesSnapshot = db.collection("patrones_comunidad")
+                .whereIn(FieldPath.documentId(), ids).get().await()
+            _guardados.value = patronesSnapshot.documents.mapNotNull { doc ->
+                doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
+            }
+        } catch (_: Exception) { }
     }
 
     fun cerrarSesion() {

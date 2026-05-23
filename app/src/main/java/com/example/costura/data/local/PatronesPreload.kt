@@ -33,8 +33,13 @@ object PatronesPreload {
                 largoCm = 35f,
                 dificultad = "medio",
                 descripcion = "Bolsa de manillar tipo stem bag para bikepacking. Ideal para llevar snacks, el teléfono o gafas de sol. Resultado final: 10 × 18 cm. Incluye bolsillo exterior de malla y cordón de cierre. Nivel intermedio.",
-                imagenAsset = "",
-                fuente = ""
+                imagenAsset = listOf(
+                    "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/fotos_precargadas%2Fbikepacking%2FCaptura%20de%20pantalla%202026-05-23%20a%20las%2019.39.54.png?alt=media&token=8587f956-c8c4-4588-8b32-29ec993dd2f8",
+                    "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/fotos_precargadas%2Fbikepacking%2FCaptura%20de%20pantalla%202026-05-23%20a%20las%2019.39.58.png?alt=media&token=3e26e0cf-b58b-42e1-a851-07b614771d43",
+                    "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/fotos_precargadas%2Fbikepacking%2FCaptura%20de%20pantalla%202026-05-23%20a%20las%2019.40.02.png?alt=media&token=4c0f4def-1aee-473d-a24e-40af3b67cbcf",
+                    "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/fotos_precargadas%2Fbikepacking%2FCaptura%20de%20pantalla%202026-05-23%20a%20las%2019.40.07.png?alt=media&token=79386014-7bd4-4f4f-954c-80d87245fdf1"
+                ).joinToString(","),
+                fuente = "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/patrones_precargados%2Fbikepacking.pdf?alt=media&token=efe6c463-2953-49f6-9a92-fd58b93e66a6"
             )
         )
 

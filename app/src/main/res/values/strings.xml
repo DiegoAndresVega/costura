@@ -114,6 +114,7 @@
     <string name="eliminar_mensaje">Esta acción no se puede deshacer.</string>
     <string name="eliminar_confirmar">Eliminar</string>
     <string name="eliminar_cancelar">Cancelar</string>
+    <string name="eliminar_comentario">Eliminar comentario</string>
     <string name="editar_titulo">Editar patrón</string>
     <string name="editar_guardar">Guardar cambios</string>
     <string name="editar_guardado_ok">Patrón actualizado</string>

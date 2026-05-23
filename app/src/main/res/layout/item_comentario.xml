@@ -9,12 +9,24 @@
 
     <TextView
         android:id="@+id/tv_nombre_usuario"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceLabelMedium"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_eliminar_comentario" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_eliminar_comentario"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:contentDescription="@string/eliminar_comentario"
+        app:icon="@drawable/ic_delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tv_texto"

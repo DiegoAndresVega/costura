@@ -144,6 +144,21 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
         }
     }
 
+    fun eliminarComentario(comentarioId: String) {
+        viewModelScope.launch {
+            try {
+                db.collection("patrones_comunidad")
+                    .document(patronId)
+                    .collection("comentarios")
+                    .document(comentarioId)
+                    .delete()
+                    .await()
+            } catch (_: Exception) {
+                _error.value = "No se pudo eliminar el comentario"
+            }
+        }
+    }
+
     fun enviarComentario(texto: String) {
         val user = auth.currentUser ?: return
         viewModelScope.launch {

@@ -20,6 +20,7 @@ import com.example.costura.ui.common.FotosAdapter
 import com.example.costura.viewmodel.DetalleViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 class DetalleFragment : Fragment() {
 
@@ -33,7 +34,13 @@ class DetalleFragment : Fragment() {
     }
 
     private val fotosAdapter = FotosAdapter()
-    private val comentariosAdapter = ComentarioAdapter()
+    private val currentUid by lazy { FirebaseAuth.getInstance().currentUser?.uid ?: "" }
+    private val comentariosAdapter by lazy {
+        ComentarioAdapter(
+            currentUid = currentUid,
+            onDelete = { id -> viewModel.eliminarComentario(id) }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

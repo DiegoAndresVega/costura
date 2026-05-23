@@ -1,6 +1,7 @@
 package com.example.costura.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,8 +19,23 @@ class ExplorarViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
-    private val _patrones = MutableLiveData<List<PatronComunidad>>(emptyList())
-    val patrones: LiveData<List<PatronComunidad>> = _patrones
+    private val _allPatrones = MutableLiveData<List<PatronComunidad>>(emptyList())
+    private val _query = MutableLiveData("")
+
+    val patrones: MediatorLiveData<List<PatronComunidad>> = MediatorLiveData<List<PatronComunidad>>().apply {
+        fun update() {
+            val q = _query.value?.trim()?.lowercase() ?: ""
+            val all = _allPatrones.value ?: emptyList()
+            value = if (q.isEmpty()) all
+            else all.filter { p ->
+                p.nombre.lowercase().contains(q) ||
+                p.nombreAutor.lowercase().contains(q) ||
+                p.descripcion.lowercase().contains(q)
+            }
+        }
+        addSource(_allPatrones) { update() }
+        addSource(_query) { update() }
+    }
 
     private val _cargando = MutableLiveData(false)
     val cargando: LiveData<Boolean> = _cargando
@@ -32,6 +48,10 @@ class ExplorarViewModel : ViewModel() {
     init {
         escucharPatrones()
         cargarGuardados()
+    }
+
+    fun setQuery(q: String) {
+        _query.value = q
     }
 
     fun escucharPatrones(categoria: String? = null) {
@@ -48,7 +68,7 @@ class ExplorarViewModel : ViewModel() {
         listener = query.addSnapshotListener { snapshot, _ ->
             _cargando.value = false
             snapshot ?: return@addSnapshotListener
-            _patrones.value = snapshot.documents.mapNotNull { doc ->
+            _allPatrones.value = snapshot.documents.mapNotNull { doc ->
                 doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
             }
         }

@@ -1,12 +1,16 @@
 package com.example.costura.data.local
 
+import android.content.Context
 import com.example.costura.data.local.dao.PatronDao
 import com.example.costura.data.local.entity.PatronLocal
 
 object PatronesPreload {
 
-    suspend fun insertar(dao: PatronDao) {
-        if (dao.count() > 0) return
+    private const val SEED_VERSION = 3
+
+    suspend fun insertar(dao: PatronDao, context: Context) {
+        val prefs = context.getSharedPreferences("costura_prefs", Context.MODE_PRIVATE)
+        if (prefs.getInt("seed_version", 0) >= SEED_VERSION) return
 
         val fotosRinonera = listOf(
             "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/fotos_precargadas%2Frinonera1.png?alt=media&token=87dc847e-cf9b-4668-8a1d-13e8214147ca",
@@ -56,6 +60,8 @@ object PatronesPreload {
             )
         )
 
+        dao.deleteAll()
         dao.insertAll(patrones)
+        prefs.edit().putInt("seed_version", SEED_VERSION).apply()
     }
 }

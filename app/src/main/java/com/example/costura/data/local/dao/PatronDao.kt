@@ -38,4 +38,7 @@ interface PatronDao {
 
     @Query("SELECT * FROM patrones_precargados ORDER BY nombre ASC")
     suspend fun getAllList(): List<PatronLocal>
+
+    @Query("DELETE FROM patrones_precargados")
+    suspend fun deleteAll()
 }

@@ -27,13 +27,13 @@ class PerfilFragment : Fragment() {
 
     private val misPatronesAdapter = PatronComunidadAdapter(
         onClick = { patron ->
-            findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
+            findNavController().navigate(R.id.action_perfil_to_detalle, bundleOf("patronId" to patron.id))
         }
     )
 
     private val guardadosAdapter = PatronComunidadAdapter(
         onClick = { patron ->
-            findNavController().navigate(R.id.detalleFragment, bundleOf("patronId" to patron.id))
+            findNavController().navigate(R.id.action_perfil_to_detalle, bundleOf("patronId" to patron.id))
         }
     )
 

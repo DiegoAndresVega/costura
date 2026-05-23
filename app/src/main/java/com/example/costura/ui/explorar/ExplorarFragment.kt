@@ -24,7 +24,7 @@ class ExplorarFragment : Fragment() {
     private val adapter = PatronComunidadAdapter(
         onClick = { patron ->
             findNavController().navigate(
-                R.id.detalleFragment,
+                R.id.action_explorar_to_detalle,
                 bundleOf("patronId" to patron.id)
             )
         },

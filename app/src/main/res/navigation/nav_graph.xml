@@ -9,7 +9,15 @@
         android:id="@+id/explorarFragment"
         android:name="com.example.costura.ui.explorar.ExplorarFragment"
         android:label="@string/nav_explorar"
-        tools:layout="@layout/fragment_explorar" />
+        tools:layout="@layout/fragment_explorar">
+        <action
+            android:id="@+id/action_explorar_to_detalle"
+            app:destination="@id/detalleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/calcularFragment"
@@ -18,7 +26,11 @@
         tools:layout="@layout/fragment_calcular">
         <action
             android:id="@+id/action_calcular_to_resultados"
-            app:destination="@id/resultadosFragment" />
+            app:destination="@id/resultadosFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -28,7 +40,11 @@
         tools:layout="@layout/fragment_resultados">
         <action
             android:id="@+id/action_resultados_to_detalle_local"
-            app:destination="@id/detalleLocalFragment" />
+            app:destination="@id/detalleLocalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -54,11 +70,26 @@
         android:label="@string/nav_perfil"
         tools:layout="@layout/fragment_perfil">
         <action
+            android:id="@+id/action_perfil_to_detalle"
+            app:destination="@id/detalleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_perfil_to_historial"
-            app:destination="@id/historialFragment" />
+            app:destination="@id/historialFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_perfil_to_editar"
-            app:destination="@id/editarPerfilFragment" />
+            app:destination="@id/editarPerfilFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -84,7 +115,11 @@
             android:defaultValue="" />
         <action
             android:id="@+id/action_detalle_to_editar"
-            app:destination="@id/editarPatronFragment" />
+            app:destination="@id/editarPatronFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

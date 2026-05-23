@@ -35,4 +35,7 @@ interface PatronDao {
 
     @Query("SELECT COUNT(*) FROM patrones_precargados")
     suspend fun count(): Int
+
+    @Query("SELECT * FROM patrones_precargados ORDER BY nombre ASC")
+    suspend fun getAllList(): List<PatronLocal>
 }

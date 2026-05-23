@@ -30,6 +30,12 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
     private val _guardado = MutableLiveData(false)
     val guardado: LiveData<Boolean> = _guardado
 
+    private val _esAutor = MutableLiveData(false)
+    val esAutor: LiveData<Boolean> = _esAutor
+
+    private val _eliminado = MutableLiveData(false)
+    val eliminado: LiveData<Boolean> = _eliminado
+
     init {
         cargarPatron()
         cargarComentarios()
@@ -56,9 +62,19 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
         viewModelScope.launch {
             try {
                 val doc = db.collection("patrones_comunidad").document(patronId).get().await()
-                _patron.value = doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
-            } catch (_: Exception) {
-            }
+                val patron = doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
+                _patron.value = patron
+                _esAutor.value = patron?.uidAutor == auth.currentUser?.uid
+            } catch (_: Exception) { }
+        }
+    }
+
+    fun eliminar() {
+        viewModelScope.launch {
+            try {
+                db.collection("patrones_comunidad").document(patronId).delete().await()
+                _eliminado.value = true
+            } catch (_: Exception) { }
         }
     }
 

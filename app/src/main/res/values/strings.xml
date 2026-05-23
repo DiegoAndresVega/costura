@@ -103,6 +103,22 @@
     <string name="login_error_auth">Error de autenticación: %1$s</string>
     <string name="login_error_credencial">Tipo de credencial no soportado</string>
 
+    <!-- Explorar -->
+    <string name="explorar_buscar_hint">Buscar patrones…</string>
+    <string name="explorar_sin_resultados">Sin resultados para esa búsqueda</string>
+
+    <!-- Editar / eliminar patrón -->
+    <string name="detalle_editar">Editar patrón</string>
+    <string name="detalle_eliminar">Eliminar patrón</string>
+    <string name="eliminar_titulo">¿Eliminar patrón?</string>
+    <string name="eliminar_mensaje">Esta acción no se puede deshacer.</string>
+    <string name="eliminar_confirmar">Eliminar</string>
+    <string name="eliminar_cancelar">Cancelar</string>
+    <string name="editar_titulo">Editar patrón</string>
+    <string name="editar_guardar">Guardar cambios</string>
+    <string name="editar_guardado_ok">Patrón actualizado</string>
+    <string name="editar_guardado_error">No se pudo guardar. Inténtalo de nuevo</string>
+
     <!-- Errores y estados -->
     <string name="error_campos_vacios">Rellena todos los campos</string>
     <string name="error_red">Sin conexión. Comprueba tu internet</string>

@@ -25,6 +25,16 @@ object PatronesPreload {
                 descripcion = "Riñonera de uso diario con compartimento principal, bolsillo interior tipo funda y bolsillo frontal exterior con cremallera para llaves. Diseño apto para principiantes. Resultado final: 22,9 × 12,7 × 7,6 cm.",
                 imagenAsset = fotos,
                 fuente = "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/patrones_precargados%2Frinonera_uso_diario_patron.pdf?alt=media&token=5995888b-3104-4d8f-9580-27eb4cfdd6e5"
+            ),
+            PatronLocal(
+                nombre = "Bolsa de manillar para bikepacking",
+                categoria = "costura_basica",
+                anchoCm = 50f,
+                largoCm = 35f,
+                dificultad = "medio",
+                descripcion = "Bolsa de manillar tipo stem bag para bikepacking. Ideal para llevar snacks, el teléfono o gafas de sol. Resultado final: 10 × 18 cm. Incluye bolsillo exterior de malla y cordón de cierre. Nivel intermedio.",
+                imagenAsset = "",
+                fuente = ""
             )
         )
 

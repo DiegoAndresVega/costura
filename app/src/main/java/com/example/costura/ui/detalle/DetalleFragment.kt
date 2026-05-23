@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -16,6 +18,7 @@ import com.example.costura.R
 import com.example.costura.databinding.FragmentDetalleBinding
 import com.example.costura.ui.common.FotosAdapter
 import com.example.costura.viewmodel.DetalleViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DetalleFragment : Fragment() {
 
@@ -112,6 +115,16 @@ class DetalleFragment : Fragment() {
             }
         }
 
+        viewModel.esAutor.observe(viewLifecycleOwner) { esAutor ->
+            val visibilidad = if (esAutor) View.VISIBLE else View.GONE
+            binding.btnEditar.visibility = visibilidad
+            binding.btnEliminar.visibility = visibilidad
+        }
+
+        viewModel.eliminado.observe(viewLifecycleOwner) { eliminado ->
+            if (eliminado) findNavController().navigateUp()
+        }
+
         viewModel.comentarios.observe(viewLifecycleOwner) { lista ->
             comentariosAdapter.submitList(lista)
         }
@@ -131,6 +144,24 @@ class DetalleFragment : Fragment() {
 
         binding.btnLike.setOnClickListener { viewModel.toggleLike() }
         binding.btnGuardar.setOnClickListener { viewModel.toggleGuardado() }
+
+        binding.btnEditar.setOnClickListener {
+            findNavController().navigate(
+                R.id.editarPatronFragment,
+                bundleOf("patronId" to patronId)
+            )
+        }
+
+        binding.btnEliminar.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.eliminar_titulo)
+                .setMessage(R.string.eliminar_mensaje)
+                .setNegativeButton(R.string.eliminar_cancelar, null)
+                .setPositiveButton(R.string.eliminar_confirmar) { _, _ ->
+                    viewModel.eliminar()
+                }
+                .show()
+        }
 
         binding.btnEnviar.setOnClickListener {
             val texto = binding.etComentario.text?.toString()?.trim()

@@ -82,6 +82,20 @@
             android:name="patronId"
             app:argType="string"
             android:defaultValue="" />
+        <action
+            android:id="@+id/action_detalle_to_editar"
+            app:destination="@id/editarPatronFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editarPatronFragment"
+        android:name="com.example.costura.ui.detalle.EditarPatronFragment"
+        android:label="@string/editar_titulo"
+        tools:layout="@layout/fragment_editar_patron">
+        <argument
+            android:name="patronId"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 
 </navigation>

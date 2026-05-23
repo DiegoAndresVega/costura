@@ -36,6 +36,9 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
     private val _eliminado = MutableLiveData(false)
     val eliminado: LiveData<Boolean> = _eliminado
 
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
+
     init {
         cargarPatron()
         cargarComentarios()
@@ -65,7 +68,9 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
                 val patron = doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
                 _patron.value = patron
                 _esAutor.value = patron?.uidAutor == auth.currentUser?.uid
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+                _error.value = "No se pudo cargar el patrón"
+            }
         }
     }
 
@@ -74,7 +79,9 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
             try {
                 db.collection("patrones_comunidad").document(patronId).delete().await()
                 _eliminado.value = true
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+                _error.value = "No se pudo eliminar el patrón"
+            }
         }
     }
 
@@ -114,6 +121,7 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
                 else ref.set(mapOf("fechaGuardado" to com.google.firebase.Timestamp.now())).await()
             } catch (_: Exception) {
                 _guardado.value = eraGuardado
+                _error.value = "Error al guardar el patrón"
             }
         }
     }
@@ -131,6 +139,7 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
                 patronRef.update("likes", FieldValue.increment(if (eraLiked) -1L else 1L)).await()
             } catch (_: Exception) {
                 _liked.value = eraLiked
+                _error.value = "Error al actualizar el like"
             }
         }
     }
@@ -151,6 +160,7 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
                     .add(comentario)
                     .await()
             } catch (_: Exception) {
+                _error.value = "No se pudo enviar el comentario"
             }
         }
     }

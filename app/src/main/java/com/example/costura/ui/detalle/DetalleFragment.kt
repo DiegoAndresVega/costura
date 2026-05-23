@@ -19,6 +19,7 @@ import com.example.costura.databinding.FragmentDetalleBinding
 import com.example.costura.ui.common.FotosAdapter
 import com.example.costura.viewmodel.DetalleViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 
 class DetalleFragment : Fragment() {
 
@@ -123,6 +124,12 @@ class DetalleFragment : Fragment() {
 
         viewModel.eliminado.observe(viewLifecycleOwner) { eliminado ->
             if (eliminado) findNavController().navigateUp()
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { mensaje ->
+            if (!mensaje.isNullOrEmpty()) {
+                Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG).show()
+            }
         }
 
         viewModel.comentarios.observe(viewLifecycleOwner) { lista ->

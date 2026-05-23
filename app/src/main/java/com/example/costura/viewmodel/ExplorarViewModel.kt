@@ -40,6 +40,9 @@ class ExplorarViewModel : ViewModel() {
     private val _cargando = MutableLiveData(false)
     val cargando: LiveData<Boolean> = _cargando
 
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
+
     private val _savedIds = MutableLiveData<Set<String>>(emptySet())
     val savedIds: LiveData<Set<String>> = _savedIds
 
@@ -65,8 +68,9 @@ class ExplorarViewModel : ViewModel() {
                 .limit(50)
         }
 
-        listener = query.addSnapshotListener { snapshot, _ ->
+        listener = query.addSnapshotListener { snapshot, err ->
             _cargando.value = false
+            if (err != null) { _error.value = "Error al cargar los patrones"; return@addSnapshotListener }
             snapshot ?: return@addSnapshotListener
             _allPatrones.value = snapshot.documents.mapNotNull { doc ->
                 doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
@@ -105,6 +109,7 @@ class ExplorarViewModel : ViewModel() {
                 } else {
                     (_savedIds.value ?: emptySet()) - patronId
                 }
+                _error.value = "Error al guardar el patrón"
             }
         }
     }

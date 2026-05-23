@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.costura.R
 import com.example.costura.databinding.FragmentExplorarBinding
 import com.example.costura.viewmodel.ExplorarViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ExplorarFragment : Fragment() {
 
@@ -43,6 +44,7 @@ class ExplorarFragment : Fragment() {
         binding.rvPatrones.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvPatrones.adapter = adapter
 
+        binding.searchView.setupWithSearchBar(binding.searchBar)
         setupSearch()
         setupCategoryChips()
         observeViewModel()
@@ -86,6 +88,11 @@ class ExplorarFragment : Fragment() {
         }
         viewModel.savedIds.observe(viewLifecycleOwner) { ids ->
             adapter.updateSavedIds(ids)
+        }
+        viewModel.error.observe(viewLifecycleOwner) { mensaje ->
+            if (!mensaje.isNullOrEmpty()) {
+                Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 

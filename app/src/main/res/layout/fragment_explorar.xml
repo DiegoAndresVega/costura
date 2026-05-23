@@ -70,8 +70,7 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="@string/explorar_buscar_hint"
-        app:setupWithSearchBar="@id/search_bar" />
+        android:hint="@string/explorar_buscar_hint" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_patrones"

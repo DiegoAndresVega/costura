@@ -26,6 +26,9 @@ class PerfilViewModel : ViewModel() {
     private val _guardados = MutableLiveData<List<PatronComunidad>>(emptyList())
     val guardados: LiveData<List<PatronComunidad>> = _guardados
 
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
+
     init {
         cargarUsuario()
     }
@@ -56,7 +59,9 @@ class PerfilViewModel : ViewModel() {
                     nivelCostura = doc.getString("nivelCostura") ?: "",
                     fotoPerfilUrl = doc.getString("fotoPerfilUrl")
                 )
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+                _error.value = "No se pudo cargar el perfil"
+            }
 
             cargarMisPatrones(firebaseUser.uid)
             cargarGuardados(firebaseUser.uid)
@@ -71,7 +76,9 @@ class PerfilViewModel : ViewModel() {
             _misPatrones.value = snapshot.documents.mapNotNull { doc ->
                 doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
             }
-        } catch (_: Exception) { }
+        } catch (_: Exception) {
+            _error.value = "Error al cargar tus patrones"
+        }
     }
 
     private suspend fun cargarGuardados(uid: String) {
@@ -85,7 +92,9 @@ class PerfilViewModel : ViewModel() {
             _guardados.value = patronesSnapshot.documents.mapNotNull { doc ->
                 doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
             }
-        } catch (_: Exception) { }
+        } catch (_: Exception) {
+            _error.value = "Error al cargar los patrones guardados"
+        }
     }
 
     fun cerrarSesion() {

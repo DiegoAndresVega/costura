@@ -17,6 +17,7 @@ import com.example.costura.model.Usuario
 import com.example.costura.ui.explorar.PatronComunidadAdapter
 import com.example.costura.ui.login.LoginActivity
 import com.example.costura.viewmodel.PerfilViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class PerfilFragment : Fragment() {
 
@@ -81,6 +82,12 @@ class PerfilFragment : Fragment() {
         viewModel.guardados.observe(viewLifecycleOwner) { patrones ->
             guardadosAdapter.submitList(patrones)
             binding.tvGuardados.visibility = if (patrones.isEmpty()) View.GONE else View.VISIBLE
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { mensaje ->
+            if (!mensaje.isNullOrEmpty()) {
+                Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 

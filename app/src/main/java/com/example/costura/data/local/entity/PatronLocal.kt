@@ -13,5 +13,6 @@ data class PatronLocal(
     val dificultad: String,
     val descripcion: String,
     val imagenAsset: String = "",
-    val fuente: String = ""
+    val fuente: String = "",
+    val tutorialUrl: String = ""
 )

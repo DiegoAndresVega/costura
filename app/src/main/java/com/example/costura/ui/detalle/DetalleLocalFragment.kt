@@ -70,6 +70,13 @@ class DetalleLocalFragment : Fragment() {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(patron.fuente)))
                 }
             }
+
+            if (patron.tutorialUrl.isNotBlank()) {
+                binding.btnTutorial.visibility = View.VISIBLE
+                binding.btnTutorial.setOnClickListener {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(patron.tutorialUrl)))
+                }
+            }
         }
     }
 

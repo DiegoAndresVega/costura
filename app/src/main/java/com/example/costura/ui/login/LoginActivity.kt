@@ -15,6 +15,7 @@ import androidx.credentials.exceptions.GetCredentialException
 import androidx.lifecycle.lifecycleScope
 import com.example.costura.MainActivity
 import com.example.costura.R
+import com.example.costura.ui.onboarding.OnboardingActivity
 import com.example.costura.databinding.ActivityLoginBinding
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -104,7 +105,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun irAMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+        val prefs = getSharedPreferences("costura_prefs", MODE_PRIVATE)
+        val destino = if (prefs.getBoolean("onboarding_completado", false)) {
+            MainActivity::class.java
+        } else {
+            OnboardingActivity::class.java
+        }
+        startActivity(Intent(this, destino))
         finish()
     }
 

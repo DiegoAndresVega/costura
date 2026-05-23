@@ -119,6 +119,16 @@
     <string name="editar_guardado_ok">Patrón actualizado</string>
     <string name="editar_guardado_error">No se pudo guardar. Inténtalo de nuevo</string>
 
+    <!-- Onboarding -->
+    <string name="onboarding_siguiente">Siguiente</string>
+    <string name="onboarding_empezar">Empezar</string>
+    <string name="onboarding_1_titulo">Mide tu tela</string>
+    <string name="onboarding_1_desc">Introduce las medidas de tu tela y descubre qué patrones puedes coser con ella.</string>
+    <string name="onboarding_2_titulo">Explora la comunidad</string>
+    <string name="onboarding_2_desc">Descubre patrones compartidos por otras personas y guarda tus favoritos.</string>
+    <string name="onboarding_3_titulo">Comparte tus creaciones</string>
+    <string name="onboarding_3_desc">Sube tus propios patrones y ayuda a crecer a la comunidad costurera.</string>
+
     <!-- Errores y estados -->
     <string name="error_campos_vacios">Rellena todos los campos</string>
     <string name="error_red">Sin conexión. Comprueba tu internet</string>

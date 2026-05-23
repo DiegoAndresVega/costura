@@ -26,6 +26,11 @@
             </intent-filter>
         </activity>
 
+        <!-- Onboarding: se muestra solo la primera vez tras el login -->
+        <activity
+            android:name=".ui.onboarding.OnboardingActivity"
+            android:exported="false" />
+
         <!-- Pantalla principal con BottomNav (requiere estar autenticado) -->
         <activity
             android:name=".MainActivity"

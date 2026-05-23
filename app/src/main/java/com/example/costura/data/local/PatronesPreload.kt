@@ -50,7 +50,7 @@ object PatronesPreload {
                 largoCm = 160f,
                 dificultad = "medio",
                 descripcion = "Patrón de pantalón de chándal para hombre en tallas S a XL. Incluye cinturilla elástica y bajos con puño. Apto para tela de punto o felpa.",
-                imagenAsset = "",
+                imagenAsset = "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/fotos_precargadas%2Fpantalon%2FPatro%CC%81n%20pantalo%CC%81n%20chandal%20hombre%20PDF.jpg?alt=media&token=660ee86a-c6d4-43ed-993b-525c62d3ba84",
                 fuente = "https://firebasestorage.googleapis.com/v0/b/costura-30e86.firebasestorage.app/o/patrones_precargados%2FChandal%20hombre%20S-XL.pdf?alt=media&token=98279320-b791-429b-99ea-253c075b903e",
                 tutorialUrl = "https://www.youtube.com/watch?v=BgOftt5rHfQ"
             )

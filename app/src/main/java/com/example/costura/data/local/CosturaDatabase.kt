@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [PatronLocal::class, HistorialMedicion::class],
-    version = 8,
+    version = 9,
     exportSchema = false
 )
 abstract class CosturaDatabase : RoomDatabase() {

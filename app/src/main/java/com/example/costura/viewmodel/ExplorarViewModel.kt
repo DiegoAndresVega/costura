@@ -94,21 +94,16 @@ class ExplorarViewModel : ViewModel() {
         val ref = db.collection("usuarios").document(uid)
             .collection("guardados").document(patronId)
         val eraGuardado = _savedIds.value?.contains(patronId) == true
-        _savedIds.value = if (eraGuardado) {
-            (_savedIds.value ?: emptySet()) - patronId
-        } else {
-            (_savedIds.value ?: emptySet()) + patronId
-        }
         viewModelScope.launch {
             try {
                 if (eraGuardado) ref.delete().await()
                 else ref.set(mapOf("fechaGuardado" to Timestamp.now())).await()
-            } catch (_: Exception) {
                 _savedIds.value = if (eraGuardado) {
-                    (_savedIds.value ?: emptySet()) + patronId
-                } else {
                     (_savedIds.value ?: emptySet()) - patronId
+                } else {
+                    (_savedIds.value ?: emptySet()) + patronId
                 }
+            } catch (_: Exception) {
                 _error.value = "Error al guardar el patrón"
             }
         }

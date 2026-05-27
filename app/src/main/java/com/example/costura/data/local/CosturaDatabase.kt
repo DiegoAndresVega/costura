@@ -5,18 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.costura.data.local.dao.HistorialDao
-import com.example.costura.data.local.dao.PatronDao
 import com.example.costura.data.local.entity.HistorialMedicion
-import com.example.costura.data.local.entity.PatronLocal
 
 @Database(
-    entities = [PatronLocal::class, HistorialMedicion::class],
-    version = 9,
+    entities = [HistorialMedicion::class],
+    version = 10,
     exportSchema = false
 )
 abstract class CosturaDatabase : RoomDatabase() {
 
-    abstract fun patronDao(): PatronDao
     abstract fun historialDao(): HistorialDao
 
     companion object {

@@ -14,7 +14,4 @@ interface HistorialDao {
 
     @Insert
     suspend fun insert(medicion: HistorialMedicion)
-
-    @Query("DELETE FROM historial_mediciones")
-    suspend fun deleteAll()
 }

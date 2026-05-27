@@ -109,6 +109,7 @@ class DetalleFragment : Fragment() {
             }
 
             if (!patron.tutorialUrl.isNullOrEmpty()) {
+                binding.layoutBotonesRecursos.visibility = View.VISIBLE
                 binding.btnTutorial.visibility = View.VISIBLE
                 binding.btnTutorial.setOnClickListener {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(patron.tutorialUrl)))
@@ -116,6 +117,7 @@ class DetalleFragment : Fragment() {
             }
 
             if (!patron.pdfUrl.isNullOrEmpty()) {
+                binding.layoutBotonesRecursos.visibility = View.VISIBLE
                 binding.btnPdf.visibility = View.VISIBLE
                 binding.btnPdf.setOnClickListener {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(patron.pdfUrl)))
@@ -145,8 +147,7 @@ class DetalleFragment : Fragment() {
 
         viewModel.liked.observe(viewLifecycleOwner) { liked ->
             binding.btnLike.setIconResource(
-                if (liked) android.R.drawable.btn_star_big_on
-                else android.R.drawable.btn_star_big_off
+                if (liked) R.drawable.ic_star_filled else R.drawable.ic_star_outline
             )
         }
 

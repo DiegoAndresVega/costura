@@ -15,20 +15,21 @@ import kotlinx.coroutines.tasks.await
 
 class EditarPerfilViewModel : ViewModel() {
 
-    sealed class Estado {
-        object Cargando : Estado()
-        data class Listo(val usuario: Usuario) : Estado()
-        object Guardando : Estado()
-        object Exito : Estado()
-        object Error : Estado()
-    }
-
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
 
-    private val _estado = MutableLiveData<Estado>(Estado.Cargando)
-    val estado: LiveData<Estado> = _estado
+    private val _usuario = MutableLiveData<Usuario?>()
+    val usuario: LiveData<Usuario?> = _usuario
+
+    private val _guardando = MutableLiveData(false)
+    val guardando: LiveData<Boolean> = _guardando
+
+    private val _exito = MutableLiveData(false)
+    val exito: LiveData<Boolean> = _exito
+
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
 
     init {
         cargarPerfil()
@@ -37,36 +38,16 @@ class EditarPerfilViewModel : ViewModel() {
     private fun cargarPerfil() {
         val firebaseUser = auth.currentUser ?: return
         viewModelScope.launch {
-            try {
-                val doc = db.collection("usuarios").document(firebaseUser.uid).get().await()
-                _estado.value = Estado.Listo(
-                    Usuario(
-                        uid = firebaseUser.uid,
-                        nombreUsuario = firebaseUser.displayName ?: "",
-                        email = firebaseUser.email ?: "",
-                        fotoUrl = firebaseUser.photoUrl?.toString(),
-                        nombreMostrado = doc.getString("nombreMostrado") ?: "",
-                        bio = doc.getString("bio") ?: "",
-                        nivelCostura = doc.getString("nivelCostura") ?: "",
-                        fotoPerfilUrl = doc.getString("fotoPerfilUrl")
-                    )
-                )
-            } catch (_: Exception) {
-                _estado.value = Estado.Listo(
-                    Usuario(
-                        uid = firebaseUser.uid,
-                        nombreUsuario = firebaseUser.displayName ?: "",
-                        email = firebaseUser.email ?: "",
-                        fotoUrl = firebaseUser.photoUrl?.toString()
-                    )
-                )
-            }
+            val doc = try {
+                db.collection("usuarios").document(firebaseUser.uid).get().await()
+            } catch (_: Exception) { null }
+            _usuario.value = Usuario.from(firebaseUser, doc)
         }
     }
 
     fun guardar(nombreMostrado: String, bio: String, nivelCostura: String, fotoUri: Uri?) {
         val uid = auth.currentUser?.uid ?: return
-        _estado.value = Estado.Guardando
+        _guardando.value = true
         viewModelScope.launch {
             try {
                 val datos = mutableMapOf<String, Any>(
@@ -82,9 +63,11 @@ class EditarPerfilViewModel : ViewModel() {
                 }
                 db.collection("usuarios").document(uid)
                     .set(datos, SetOptions.merge()).await()
-                _estado.value = Estado.Exito
+                _exito.value = true
             } catch (_: Exception) {
-                _estado.value = Estado.Error
+                _error.value = "No se pudo guardar. Inténtalo de nuevo"
+            } finally {
+                _guardando.value = false
             }
         }
     }

@@ -114,13 +114,12 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
         val ref = db.collection("usuarios").document(uid)
             .collection("guardados").document(patronId)
         val eraGuardado = _guardado.value == true
-        _guardado.value = !eraGuardado
         viewModelScope.launch {
             try {
                 if (eraGuardado) ref.delete().await()
                 else ref.set(mapOf("fechaGuardado" to com.google.firebase.Timestamp.now())).await()
+                _guardado.value = !eraGuardado
             } catch (_: Exception) {
-                _guardado.value = eraGuardado
                 _error.value = "Error al guardar el patrón"
             }
         }
@@ -131,14 +130,13 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
         val patronRef = db.collection("patrones_comunidad").document(patronId)
         val likeRef = patronRef.collection("likes").document(user.uid)
         val eraLiked = _liked.value == true
-        _liked.value = !eraLiked
         viewModelScope.launch {
             try {
                 if (eraLiked) likeRef.delete().await()
                 else likeRef.set(mapOf("uid" to user.uid)).await()
                 patronRef.update("likes", FieldValue.increment(if (eraLiked) -1L else 1L)).await()
+                _liked.value = !eraLiked
             } catch (_: Exception) {
-                _liked.value = eraLiked
                 _error.value = "Error al actualizar el like"
             }
         }

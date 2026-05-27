@@ -10,9 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.costura.R
-import com.example.costura.data.local.entity.PatronLocal
 import com.example.costura.databinding.FragmentResultadosBinding
+import com.example.costura.model.PatronComunidad
 import com.example.costura.viewmodel.ResultadosViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ResultadosFragment : Fragment() {
 
@@ -26,9 +27,9 @@ class ResultadosFragment : Fragment() {
         ResultadosViewModel.Factory(requireActivity().application, anchoCm, largoCm)
     }
 
-    private val navegarADetalle = { patron: PatronLocal ->
+    private val navegarADetalle = { patron: PatronComunidad ->
         findNavController().navigate(
-            R.id.action_resultados_to_detalle_local,
+            R.id.action_resultados_to_detalle,
             bundleOf("patronId" to patron.id)
         )
     }
@@ -71,13 +72,25 @@ class ResultadosFragment : Fragment() {
             binding.rvNoEncajan.visibility = if (hayNoEncajan) View.VISIBLE else View.GONE
             actualizarEstadoVacio()
         }
+
+        viewModel.cargando.observe(viewLifecycleOwner) { cargando ->
+            binding.progress.visibility = if (cargando) View.VISIBLE else View.GONE
+            actualizarEstadoVacio()
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { mensaje ->
+            if (!mensaje.isNullOrEmpty()) {
+                Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun actualizarEstadoVacio() {
+        val cargando = viewModel.cargando.value == true
         val encajan = viewModel.resultados.value
         val noEncajan = viewModel.noEncajan.value
         val todoVacio = encajan.isNullOrEmpty() && noEncajan.isNullOrEmpty()
-        binding.tvVacio.visibility = if (todoVacio) View.VISIBLE else View.GONE
+        binding.tvVacio.visibility = if (!cargando && todoVacio) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {

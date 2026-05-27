@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.costura.R
 import com.example.costura.databinding.FragmentPerfilBinding
+import com.example.costura.model.PatronComunidad
 import com.example.costura.model.Usuario
 import com.example.costura.ui.explorar.PatronComunidadAdapter
 import com.example.costura.ui.login.LoginActivity
@@ -25,17 +26,12 @@ class PerfilFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: PerfilViewModel by viewModels()
 
-    private val misPatronesAdapter = PatronComunidadAdapter(
-        onClick = { patron ->
-            findNavController().navigate(R.id.action_perfil_to_detalle, bundleOf("patronId" to patron.id))
-        }
-    )
+    private val abrirDetalle: (PatronComunidad) -> Unit = { patron ->
+        findNavController().navigate(R.id.action_perfil_to_detalle, bundleOf("patronId" to patron.id))
+    }
 
-    private val guardadosAdapter = PatronComunidadAdapter(
-        onClick = { patron ->
-            findNavController().navigate(R.id.action_perfil_to_detalle, bundleOf("patronId" to patron.id))
-        }
-    )
+    private val misPatronesAdapter = PatronComunidadAdapter(onClick = abrirDetalle)
+    private val guardadosAdapter = PatronComunidadAdapter(onClick = abrirDetalle)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

@@ -1,13 +1,13 @@
 package com.example.costura
 
 import com.example.costura.data.local.CalculoTela
-import com.example.costura.data.local.entity.PatronLocal
+import com.example.costura.model.PatronComunidad
 import org.junit.Assert.*
 import org.junit.Test
 
 class CalculoTelaTest {
 
-    private fun patron(nombre: String, ancho: Float, largo: Float) = PatronLocal(
+    private fun patron(nombre: String, ancho: Float, largo: Float) = PatronComunidad(
         nombre = nombre,
         categoria = "ropa",
         anchoCm = ancho,

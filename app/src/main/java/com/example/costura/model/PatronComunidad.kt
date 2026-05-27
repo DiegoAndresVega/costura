@@ -1,10 +1,11 @@
 package com.example.costura.model
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.PropertyName
 
 data class PatronComunidad(
     val id: String = "",
-    val uidAutor: String = "",
+    @get:PropertyName("id_autor") val uidAutor: String = "",
     val nombreAutor: String = "",
     val fotoAutorUrl: String? = null,
     val nombre: String = "",

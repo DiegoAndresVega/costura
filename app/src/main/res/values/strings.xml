@@ -54,7 +54,6 @@
     <string name="detalle_comentarios">Comentarios</string>
     <string name="detalle_tutorial">Ver tutorial</string>
     <string name="detalle_comentario_hint">Escribe un comentario…</string>
-    <string name="detalle_enviar">Enviar</string>
 
     <!-- Perfil -->
     <string name="perfil_mis_patrones">Mis patrones</string>
@@ -70,11 +69,9 @@
     <string name="perfil_nivel_intermedio">Intermedio</string>
     <string name="perfil_nivel_avanzado">Avanzado</string>
     <string name="perfil_guardar_cambios">Guardar cambios</string>
-    <string name="perfil_guardado_ok">Perfil actualizado</string>
     <string name="perfil_guardado_error">No se pudo guardar. Inténtalo de nuevo</string>
 
     <!-- Historial -->
-    <string name="historial_titulo">Mis mediciones</string>
     <string name="historial_vacio">Aún no has calculado ninguna tela</string>
     <string name="historial_tela">Tela: %1$.0f × %2$.0f cm</string>
     <string name="historial_patrones">%1$d patrones encajaron</string>
@@ -118,7 +115,6 @@
     <string name="editar_titulo">Editar patrón</string>
     <string name="editar_guardar">Guardar cambios</string>
     <string name="editar_guardado_ok">Patrón actualizado</string>
-    <string name="editar_guardado_error">No se pudo guardar. Inténtalo de nuevo</string>
 
     <!-- Onboarding -->
     <string name="onboarding_siguiente">Siguiente</string>
@@ -132,6 +128,4 @@
 
     <!-- Errores y estados -->
     <string name="error_campos_vacios">Rellena todos los campos</string>
-    <string name="error_red">Sin conexión. Comprueba tu internet</string>
-    <string name="cargando">Cargando…</string>
 </resources>

@@ -62,6 +62,7 @@ class SubirViewModel : ViewModel() {
         }
 
         _cargando.value = true
+        _publicado.value = false
         viewModelScope.launch {
             try {
                 val fotosUrls = (_fotosUris.value ?: emptyList()).map { uri ->
@@ -98,9 +99,8 @@ class SubirViewModel : ViewModel() {
                 pdfUri = null
                 _pdfNombre.value = null
                 _publicado.value = true
-                _publicado.value = false
-            } catch (e: Exception) {
-                _error.value = e.message
+            } catch (_: Exception) {
+                _error.value = "No se pudo publicar el patrón"
             } finally {
                 _cargando.value = false
             }

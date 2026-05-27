@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.costura.data.local.entity.PatronLocal
 import com.example.costura.R
 import com.example.costura.databinding.ItemPatronResultadoBinding
+import com.example.costura.model.PatronComunidad
 
 class PatronResultadoAdapter(
-    private val onClick: (PatronLocal) -> Unit = {}
-) : ListAdapter<PatronLocal, PatronResultadoAdapter.ViewHolder>(DIFF) {
+    private val onClick: (PatronComunidad) -> Unit = {}
+) : ListAdapter<PatronComunidad, PatronResultadoAdapter.ViewHolder>(DIFF) {
 
     inner class ViewHolder(private val binding: ItemPatronResultadoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(patron: PatronLocal) {
+        fun bind(patron: PatronComunidad) {
             binding.tvNombre.text = patron.nombre
             binding.tvCategoria.text = patron.categoria.replace("_", " ").replaceFirstChar { it.uppercase() }
             binding.tvMedidas.text = "Tela mínima: ${patron.anchoCm.toInt()} × ${patron.largoCm.toInt()} cm"
@@ -34,7 +34,7 @@ class PatronResultadoAdapter(
             binding.tvDificultad.setChipBackgroundColorResource(bgColor)
             binding.tvDificultad.setTextColor(ContextCompat.getColor(binding.root.context, textColor))
 
-            val primeraFoto = patron.imagenAsset.split(",").firstOrNull { it.isNotBlank() }
+            val primeraFoto = patron.fotosUrls.firstOrNull { it.isNotBlank() }
             if (!primeraFoto.isNullOrEmpty()) {
                 binding.ivPortada.visibility = View.VISIBLE
                 Glide.with(binding.root).load(primeraFoto).centerCrop().into(binding.ivPortada)
@@ -58,9 +58,9 @@ class PatronResultadoAdapter(
     }
 
     companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<PatronLocal>() {
-            override fun areItemsTheSame(a: PatronLocal, b: PatronLocal) = a.id == b.id
-            override fun areContentsTheSame(a: PatronLocal, b: PatronLocal) = a == b
+        private val DIFF = object : DiffUtil.ItemCallback<PatronComunidad>() {
+            override fun areItemsTheSame(a: PatronComunidad, b: PatronComunidad) = a.id == b.id
+            override fun areContentsTheSame(a: PatronComunidad, b: PatronComunidad) = a == b
         }
     }
 }

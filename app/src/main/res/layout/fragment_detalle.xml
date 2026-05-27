@@ -147,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detalle_likes"
-                app:icon="@android:drawable/btn_star_big_off" />
+                app:icon="@drawable/ic_star_outline" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_guardar"
@@ -157,22 +157,6 @@
                 android:layout_marginStart="8dp"
                 android:text="@string/perfil_guardados"
                 app:icon="@drawable/ic_bookmark_outline" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_tutorial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/detalle_tutorial"
-                android:visibility="gone" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_pdf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/detalle_pdf"
-                android:visibility="gone" />
 
             <View
                 android:layout_width="0dp"
@@ -199,6 +183,38 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_botones_recursos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/layout_botones"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_tutorial"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detalle_tutorial"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pdf"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/detalle_pdf"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_comentarios_titulo"
             android:layout_width="0dp"
@@ -208,7 +224,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/detalle_comentarios"
             android:textAppearance="?attr/textAppearanceTitleMedium"
-            app:layout_constraintTop_toBottomOf="@id/layout_botones"
+            app:layout_constraintTop_toBottomOf="@id/layout_botones_recursos"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

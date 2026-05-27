@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.costura.R
 import com.example.costura.databinding.FragmentEditarPerfilBinding
+import com.example.costura.model.Usuario
 import com.example.costura.viewmodel.EditarPerfilViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -56,31 +57,27 @@ class EditarPerfilFragment : Fragment() {
             viewModel.guardar(nombre, bio, nivel, fotoUri)
         }
 
-        viewModel.estado.observe(viewLifecycleOwner) { estado ->
-            when (estado) {
-                is EditarPerfilViewModel.Estado.Listo -> mostrarDatos(estado)
-                is EditarPerfilViewModel.Estado.Guardando -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.btnGuardar.isEnabled = false
-                }
-                is EditarPerfilViewModel.Estado.Exito -> {
-                    findNavController().popBackStack()
-                }
-                is EditarPerfilViewModel.Estado.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.btnGuardar.isEnabled = true
-                    Snackbar.make(binding.root, R.string.perfil_guardado_error, Snackbar.LENGTH_SHORT).show()
-                }
-                else -> {}
+        viewModel.usuario.observe(viewLifecycleOwner) { usuario ->
+            if (usuario != null) mostrarDatos(usuario)
+        }
+
+        viewModel.guardando.observe(viewLifecycleOwner) { guardando ->
+            binding.progressBar.visibility = if (guardando) View.VISIBLE else View.GONE
+            binding.btnGuardar.isEnabled = !guardando
+        }
+
+        viewModel.exito.observe(viewLifecycleOwner) { exito ->
+            if (exito) findNavController().popBackStack()
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { mensaje ->
+            if (!mensaje.isNullOrEmpty()) {
+                Snackbar.make(binding.root, R.string.perfil_guardado_error, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun mostrarDatos(estado: EditarPerfilViewModel.Estado.Listo) {
-        val u = estado.usuario
-        binding.progressBar.visibility = View.GONE
-        binding.btnGuardar.isEnabled = true
-
+    private fun mostrarDatos(u: Usuario) {
         binding.etNombre.setText(u.nombreMostrado.ifBlank { u.nombreUsuario })
         binding.etBio.setText(u.bio)
 

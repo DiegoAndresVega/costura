@@ -64,7 +64,6 @@
     <string name="detalle_comentarios">Comments</string>
     <string name="detalle_tutorial">Watch tutorial</string>
     <string name="detalle_comentario_hint">Write a comment…</string>
-    <string name="detalle_enviar">Send</string>
     <string name="detalle_pdf">Download pattern (PDF)</string>
     <string name="detalle_consejos">💡 Tips</string>
 
@@ -74,13 +73,10 @@
     <string name="perfil_cerrar_sesion">Sign out</string>
 
     <!-- Historial -->
-    <string name="historial_titulo">My measurements</string>
     <string name="historial_vacio">You haven\'t calculated any fabric yet</string>
     <string name="historial_tela">Fabric: %1$.0f × %2$.0f cm</string>
     <string name="historial_patrones">%1$d patterns matched</string>
 
     <!-- Errores y estados -->
     <string name="error_campos_vacios">Please fill in all fields</string>
-    <string name="error_red">No connection. Check your internet</string>
-    <string name="cargando">Loading…</string>
 </resources>

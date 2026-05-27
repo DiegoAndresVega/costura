@@ -39,23 +39,12 @@
         android:label="@string/nav_resultados"
         tools:layout="@layout/fragment_resultados">
         <action
-            android:id="@+id/action_resultados_to_detalle_local"
-            app:destination="@id/detalleLocalFragment"
+            android:id="@+id/action_resultados_to_detalle"
+            app:destination="@id/detalleFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/detalleLocalFragment"
-        android:name="com.example.costura.ui.detalle.DetalleLocalFragment"
-        android:label="@string/nav_detalle"
-        tools:layout="@layout/fragment_detalle_local">
-        <argument
-            android:name="patronId"
-            app:argType="integer"
-            android:defaultValue="0" />
     </fragment>
 
     <fragment

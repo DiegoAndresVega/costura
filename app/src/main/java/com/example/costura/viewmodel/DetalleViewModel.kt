@@ -132,9 +132,15 @@ class DetalleViewModel(private val patronId: String) : ViewModel() {
         val eraLiked = _liked.value == true
         viewModelScope.launch {
             try {
-                if (eraLiked) likeRef.delete().await()
-                else likeRef.set(mapOf("uid" to user.uid)).await()
-                patronRef.update("likes", FieldValue.increment(if (eraLiked) -1L else 1L)).await()
+                if (eraLiked) {
+                    likeRef.delete().await()
+                    val actual = _patron.value?.likes ?: 0
+                    if (actual > 0)
+                        patronRef.update("likes", FieldValue.increment(-1L)).await()
+                } else {
+                    likeRef.set(mapOf("uid" to user.uid)).await()
+                    patronRef.update("likes", FieldValue.increment(1L)).await()
+                }
                 _liked.value = !eraLiked
             } catch (_: Exception) {
                 _error.value = "Error al actualizar el like"

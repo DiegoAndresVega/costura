@@ -41,7 +41,16 @@ class EditarPerfilViewModel : ViewModel() {
             val doc = try {
                 db.collection("usuarios").document(firebaseUser.uid).get().await()
             } catch (_: Exception) { null }
-            _usuario.value = Usuario.from(firebaseUser, doc)
+            _usuario.value = Usuario(
+                uid = firebaseUser.uid,
+                nombreUsuario = firebaseUser.displayName ?: "",
+                email = firebaseUser.email ?: "",
+                fotoUrl = firebaseUser.photoUrl?.toString(),
+                nombreMostrado = doc?.getString("nombreMostrado") ?: "",
+                bio = doc?.getString("bio") ?: "",
+                nivelCostura = doc?.getString("nivelCostura") ?: "",
+                fotoPerfilUrl = doc?.getString("fotoPerfilUrl")
+            )
         }
     }
 

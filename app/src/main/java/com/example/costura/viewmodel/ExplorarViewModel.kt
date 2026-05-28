@@ -1,7 +1,6 @@
 package com.example.costura.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,6 @@ import com.example.costura.model.PatronComunidad
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -19,23 +17,9 @@ class ExplorarViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
-    private val _allPatrones = MutableLiveData<List<PatronComunidad>>(emptyList())
-    private val _query = MutableLiveData("")
+    private var todosLosPatrones: List<PatronComunidad> = emptyList()
 
-    val patrones: MediatorLiveData<List<PatronComunidad>> = MediatorLiveData<List<PatronComunidad>>().apply {
-        fun update() {
-            val q = _query.value?.trim()?.lowercase() ?: ""
-            val all = _allPatrones.value ?: emptyList()
-            value = if (q.isEmpty()) all
-            else all.filter { p ->
-                p.nombre.lowercase().contains(q) ||
-                p.nombreAutor.lowercase().contains(q) ||
-                p.descripcion.lowercase().contains(q)
-            }
-        }
-        addSource(_allPatrones) { update() }
-        addSource(_query) { update() }
-    }
+    val patrones = MutableLiveData<List<PatronComunidad>>(emptyList())
 
     private val _cargando = MutableLiveData(false)
     val cargando: LiveData<Boolean> = _cargando
@@ -46,19 +30,22 @@ class ExplorarViewModel : ViewModel() {
     private val _savedIds = MutableLiveData<Set<String>>(emptySet())
     val savedIds: LiveData<Set<String>> = _savedIds
 
-    private var listener: ListenerRegistration? = null
-
     init {
         escucharPatrones()
         cargarGuardados()
     }
 
     fun setQuery(q: String) {
-        _query.value = q
+        val texto = q.trim().lowercase()
+        patrones.value = if (texto.isEmpty()) todosLosPatrones
+        else todosLosPatrones.filter { p ->
+            p.nombre.lowercase().contains(texto) ||
+            p.nombreAutor.lowercase().contains(texto) ||
+            p.descripcion.lowercase().contains(texto)
+        }
     }
 
     fun escucharPatrones(categoria: String? = null) {
-        listener?.remove()
         _cargando.value = true
 
         var query: Query = db.collection("patrones_comunidad").limit(50)
@@ -68,13 +55,14 @@ class ExplorarViewModel : ViewModel() {
                 .limit(50)
         }
 
-        listener = query.addSnapshotListener { snapshot, err ->
+        query.addSnapshotListener { snapshot, err ->
             _cargando.value = false
             if (err != null) { _error.value = "Error al cargar los patrones"; return@addSnapshotListener }
             snapshot ?: return@addSnapshotListener
-            _allPatrones.value = snapshot.documents.mapNotNull { doc ->
+            todosLosPatrones = snapshot.documents.mapNotNull { doc ->
                 doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)
             }
+            patrones.value = todosLosPatrones
         }
     }
 
@@ -109,8 +97,4 @@ class ExplorarViewModel : ViewModel() {
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        listener?.remove()
-    }
 }

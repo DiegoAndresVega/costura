@@ -3,8 +3,6 @@ package com.example.costura.ui.detalle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.costura.databinding.ItemComentarioBinding
 import com.example.costura.model.Comentario
@@ -12,7 +10,14 @@ import com.example.costura.model.Comentario
 class ComentarioAdapter(
     private val currentUid: String,
     private val onDelete: (String) -> Unit
-) : ListAdapter<Comentario, ComentarioAdapter.ViewHolder>(DIFF) {
+) : RecyclerView.Adapter<ComentarioAdapter.ViewHolder>() {
+
+    private var lista: List<Comentario> = emptyList()
+
+    fun actualizar(nuevaLista: List<Comentario>) {
+        lista = nuevaLista
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: ItemComentarioBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -35,13 +40,8 @@ class ComentarioAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(lista[position])
     }
 
-    companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<Comentario>() {
-            override fun areItemsTheSame(a: Comentario, b: Comentario) = a.id == b.id
-            override fun areContentsTheSame(a: Comentario, b: Comentario) = a == b
-        }
-    }
+    override fun getItemCount() = lista.size
 }

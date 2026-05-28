@@ -87,7 +87,7 @@ class EditarPerfilFragment : Fragment() {
             "avanzado" -> binding.chipAvanzado.isChecked = true
         }
 
-        val foto = u.fotoEfectiva
+        val foto = u.fotoPerfilUrl ?: u.fotoUrl
         if (!foto.isNullOrEmpty()) {
             Glide.with(this).load(foto).circleCrop()
                 .placeholder(R.drawable.ic_person)

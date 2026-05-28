@@ -58,7 +58,7 @@ class ResultadosFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.resultados.observe(viewLifecycleOwner) { encajan ->
-            adapterEncajan.submitList(encajan)
+            adapterEncajan.actualizar(encajan)
             val hayEncajan = encajan.isNotEmpty()
             binding.tvTituloEncajan.visibility = if (hayEncajan) View.VISIBLE else View.GONE
             binding.rvEncajan.visibility = if (hayEncajan) View.VISIBLE else View.GONE
@@ -66,7 +66,7 @@ class ResultadosFragment : Fragment() {
         }
 
         viewModel.noEncajan.observe(viewLifecycleOwner) { noEncajan ->
-            adapterNoEncajan.submitList(noEncajan)
+            adapterNoEncajan.actualizar(noEncajan)
             val hayNoEncajan = noEncajan.isNotEmpty()
             binding.tvTituloNoEncajan.visibility = if (hayNoEncajan) View.VISIBLE else View.GONE
             binding.rvNoEncajan.visibility = if (hayNoEncajan) View.VISIBLE else View.GONE

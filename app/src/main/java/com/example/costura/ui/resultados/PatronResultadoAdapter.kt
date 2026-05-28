@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.costura.R
@@ -14,7 +12,14 @@ import com.example.costura.model.PatronComunidad
 
 class PatronResultadoAdapter(
     private val onClick: (PatronComunidad) -> Unit = {}
-) : ListAdapter<PatronComunidad, PatronResultadoAdapter.ViewHolder>(DIFF) {
+) : RecyclerView.Adapter<PatronResultadoAdapter.ViewHolder>() {
+
+    private var lista: List<PatronComunidad> = emptyList()
+
+    fun actualizar(nuevaLista: List<PatronComunidad>) {
+        lista = nuevaLista
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: ItemPatronResultadoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -54,13 +59,8 @@ class PatronResultadoAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(lista[position])
     }
 
-    companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<PatronComunidad>() {
-            override fun areItemsTheSame(a: PatronComunidad, b: PatronComunidad) = a.id == b.id
-            override fun areContentsTheSame(a: PatronComunidad, b: PatronComunidad) = a == b
-        }
-    }
+    override fun getItemCount() = lista.size
 }

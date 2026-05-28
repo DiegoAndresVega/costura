@@ -39,11 +39,25 @@ class PerfilViewModel : ViewModel() {
 
     private fun cargarUsuario() {
         val firebaseUser = auth.currentUser ?: return
-        _usuario.value = Usuario.from(firebaseUser)
+        _usuario.value = Usuario(
+            uid = firebaseUser.uid,
+            nombreUsuario = firebaseUser.displayName ?: "",
+            email = firebaseUser.email ?: "",
+            fotoUrl = firebaseUser.photoUrl?.toString()
+        )
         viewModelScope.launch {
             try {
                 val doc = db.collection("usuarios").document(firebaseUser.uid).get().await()
-                _usuario.value = Usuario.from(firebaseUser, doc)
+                _usuario.value = Usuario(
+                    uid = firebaseUser.uid,
+                    nombreUsuario = firebaseUser.displayName ?: "",
+                    email = firebaseUser.email ?: "",
+                    fotoUrl = firebaseUser.photoUrl?.toString(),
+                    nombreMostrado = doc.getString("nombreMostrado") ?: "",
+                    bio = doc.getString("bio") ?: "",
+                    nivelCostura = doc.getString("nivelCostura") ?: "",
+                    fotoPerfilUrl = doc.getString("fotoPerfilUrl")
+                )
             } catch (_: Exception) {
                 _error.value = "No se pudo cargar el perfil"
             }

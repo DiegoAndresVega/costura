@@ -2,8 +2,6 @@ package com.example.costura.ui.historial
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.costura.R
 import com.example.costura.data.local.entity.HistorialMedicion
@@ -12,7 +10,14 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class HistorialAdapter : ListAdapter<HistorialMedicion, HistorialAdapter.ViewHolder>(DIFF) {
+class HistorialAdapter : RecyclerView.Adapter<HistorialAdapter.ViewHolder>() {
+
+    private var lista: List<HistorialMedicion> = emptyList()
+
+    fun actualizar(nuevaLista: List<HistorialMedicion>) {
+        lista = nuevaLista
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: ItemHistorialBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -40,16 +45,13 @@ class HistorialAdapter : ListAdapter<HistorialMedicion, HistorialAdapter.ViewHol
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(lista[position])
     }
+
+    override fun getItemCount() = lista.size
 
     companion object {
         private val FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
             .withZone(ZoneId.systemDefault())
-
-        private val DIFF = object : DiffUtil.ItemCallback<HistorialMedicion>() {
-            override fun areItemsTheSame(a: HistorialMedicion, b: HistorialMedicion) = a.id == b.id
-            override fun areContentsTheSame(a: HistorialMedicion, b: HistorialMedicion) = a == b
-        }
     }
 }

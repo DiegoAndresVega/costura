@@ -17,20 +17,17 @@ abstract class CosturaDatabase : RoomDatabase() {
     abstract fun historialDao(): HistorialDao
 
     companion object {
-        @Volatile
-        private var INSTANCE: CosturaDatabase? = null
+        private var instancia: CosturaDatabase? = null
 
         fun getInstance(context: Context): CosturaDatabase {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Room.databaseBuilder(
+            if (instancia == null) {
+                instancia = Room.databaseBuilder(
                     context.applicationContext,
                     CosturaDatabase::class.java,
                     "costura_db"
-                )
-                    .fallbackToDestructiveMigration(true)
-                    .build()
-                    .also { INSTANCE = it }
+                ).fallbackToDestructiveMigration(true).build()
             }
+            return instancia!!
         }
     }
 }

@@ -30,7 +30,7 @@ class HistorialFragment : Fragment() {
         binding.rvHistorial.adapter = adapter
 
         viewModel.historial.observe(viewLifecycleOwner) { entradas ->
-            adapter.submitList(entradas)
+            adapter.actualizar(entradas)
             binding.tvVacio.visibility = if (entradas.isEmpty()) View.VISIBLE else View.GONE
             binding.rvHistorial.visibility = if (entradas.isEmpty()) View.GONE else View.VISIBLE
         }

@@ -56,6 +56,10 @@ class ExplorarFragment : Fragment() {
             viewModel.setQuery(q)
             binding.searchBar.setText(q)
         }
+        binding.searchView.editText.setOnEditorActionListener { _, _, _ ->
+            binding.searchView.hide()
+            true
+        }
     }
 
     private fun setupCategoryChips() {
@@ -73,7 +77,7 @@ class ExplorarFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.patrones.observe(viewLifecycleOwner) { patrones ->
-            adapter.submitList(patrones)
+            adapter.actualizar(patrones)
             binding.tvSinResultados.visibility =
                 if (patrones.isEmpty() && binding.progress.visibility == View.GONE) View.VISIBLE
                 else View.GONE

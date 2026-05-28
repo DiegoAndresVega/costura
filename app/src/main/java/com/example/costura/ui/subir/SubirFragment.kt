@@ -64,7 +64,7 @@ class SubirFragment : Fragment() {
         }
 
         viewModel.fotosUris.observe(viewLifecycleOwner) { uris ->
-            fotosPreviewAdapter.submitList(uris.map { it.toString() })
+            fotosPreviewAdapter.actualizar(uris.map { it.toString() })
             binding.btnFoto.text = if (uris.isEmpty())
                 getString(R.string.subir_foto)
             else

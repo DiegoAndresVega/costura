@@ -61,7 +61,7 @@ class DetalleFragment : Fragment() {
         viewModel.patron.observe(viewLifecycleOwner) { patron ->
             patron ?: return@observe
 
-            fotosAdapter.submitList(patron.fotosUrls)
+            fotosAdapter.actualizar(patron.fotosUrls)
 
             binding.tvNombre.text = patron.nombre
             if (patron.categoria.isNotBlank()) {
@@ -123,6 +123,8 @@ class DetalleFragment : Fragment() {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(patron.pdfUrl)))
                 }
             }
+
+            binding.tvLikesCount.text = patron.likes.toString()
         }
 
         viewModel.esAutor.observe(viewLifecycleOwner) { esAutor ->
@@ -142,7 +144,7 @@ class DetalleFragment : Fragment() {
         }
 
         viewModel.comentarios.observe(viewLifecycleOwner) { lista ->
-            comentariosAdapter.submitList(lista)
+            comentariosAdapter.actualizar(lista)
         }
 
         viewModel.liked.observe(viewLifecycleOwner) { liked ->

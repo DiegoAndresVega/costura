@@ -149,6 +149,15 @@
                 android:text="@string/detalle_likes"
                 app:icon="@drawable/ic_star_outline" />
 
+            <TextView
+                android:id="@+id/tv_likes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:text="0"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_guardar"
                 style="@style/Widget.Material3.Button.OutlinedButton"

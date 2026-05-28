@@ -2,13 +2,18 @@ package com.example.costura.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.costura.databinding.ItemFotoGaleriaBinding
 
-class FotosAdapter : ListAdapter<String, FotosAdapter.ViewHolder>(DIFF) {
+class FotosAdapter : RecyclerView.Adapter<FotosAdapter.ViewHolder>() {
+
+    private var lista: List<String> = emptyList()
+
+    fun actualizar(nuevaLista: List<String>) {
+        lista = nuevaLista
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: ItemFotoGaleriaBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -24,13 +29,8 @@ class FotosAdapter : ListAdapter<String, FotosAdapter.ViewHolder>(DIFF) {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(lista[position])
     }
 
-    companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<String>() {
-            override fun areItemsTheSame(a: String, b: String) = a == b
-            override fun areContentsTheSame(a: String, b: String) = a == b
-        }
-    }
+    override fun getItemCount() = lista.size
 }

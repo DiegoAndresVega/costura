@@ -71,12 +71,12 @@ class PerfilFragment : Fragment() {
         }
 
         viewModel.misPatrones.observe(viewLifecycleOwner) { patrones ->
-            misPatronesAdapter.submitList(patrones)
+            misPatronesAdapter.actualizar(patrones)
             binding.tvMisPatrones.visibility = if (patrones.isEmpty()) View.GONE else View.VISIBLE
         }
 
         viewModel.guardados.observe(viewLifecycleOwner) { patrones ->
-            guardadosAdapter.submitList(patrones)
+            guardadosAdapter.actualizar(patrones)
             binding.tvGuardados.visibility = if (patrones.isEmpty()) View.GONE else View.VISIBLE
         }
 
@@ -93,10 +93,10 @@ class PerfilFragment : Fragment() {
     }
 
     private fun mostrarUsuario(usuario: Usuario) {
-        binding.tvNombre.text = usuario.nombreEfectivo
+        binding.tvNombre.text = if (usuario.nombreMostrado.isNotBlank()) usuario.nombreMostrado else usuario.nombreUsuario
         binding.tvEmail.text = usuario.email
 
-        val foto = usuario.fotoEfectiva
+        val foto = usuario.fotoPerfilUrl ?: usuario.fotoUrl
         if (!foto.isNullOrEmpty()) {
             Glide.with(this).load(foto).circleCrop()
                 .placeholder(R.drawable.ic_person)

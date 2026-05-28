@@ -3,8 +3,6 @@ package com.example.costura.ui.explorar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.costura.R
@@ -14,9 +12,15 @@ import com.example.costura.model.PatronComunidad
 class PatronComunidadAdapter(
     private val onClick: (PatronComunidad) -> Unit,
     private val onGuardar: ((String) -> Unit)? = null
-) : ListAdapter<PatronComunidad, PatronComunidadAdapter.ViewHolder>(DIFF) {
+) : RecyclerView.Adapter<PatronComunidadAdapter.ViewHolder>() {
 
+    private var lista: List<PatronComunidad> = emptyList()
     private var savedIds: Set<String> = emptySet()
+
+    fun actualizar(nuevaLista: List<PatronComunidad>) {
+        lista = nuevaLista
+        notifyDataSetChanged()
+    }
 
     fun updateSavedIds(ids: Set<String>) {
         savedIds = ids
@@ -67,13 +71,8 @@ class PatronComunidadAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(lista[position])
     }
 
-    companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<PatronComunidad>() {
-            override fun areItemsTheSame(a: PatronComunidad, b: PatronComunidad) = a.id == b.id
-            override fun areContentsTheSame(a: PatronComunidad, b: PatronComunidad) = a == b
-        }
-    }
+    override fun getItemCount() = lista.size
 }

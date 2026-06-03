@@ -4,7 +4,7 @@
     <!-- Bottom Navigation -->
     <string name="nav_explorar">Explore</string>
     <string name="nav_calcular">Calculate</string>
-    <string name="nav_subir">Upload</string>
+    <string name="nav_subir">Upload</string>claude
     <string name="nav_perfil">Profile</string>
     <string name="nav_resultados">Results</string>
     <string name="nav_historial">History</string>

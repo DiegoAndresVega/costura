@@ -11,7 +11,7 @@
     <string name="nav_detalle">Detalle</string>
 
     <!-- Login -->
-    <string name="login_titulo">Bienvenida a Costura</string>
+    <string name="login_titulo">Bienvenido a Costura</string>
     <string name="login_subtitulo">Descubre patrones y comparte tus creaciones</string>
     <string name="login_boton_google">Continuar con Google</string>
 

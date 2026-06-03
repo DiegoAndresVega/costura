@@ -69,7 +69,7 @@ class PerfilViewModel : ViewModel() {
     private suspend fun cargarMisPatrones(uid: String) {
         try {
             val snapshot = db.collection("patrones_comunidad")
-                .whereEqualTo("uidAutor", uid)
+                .whereEqualTo("id_autor", uid)
                 .get().await()
             _misPatrones.value = snapshot.documents.mapNotNull { doc ->
                 doc.toObject(PatronComunidad::class.java)?.copy(id = doc.id)

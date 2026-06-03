@@ -5,7 +5,7 @@ import com.google.firebase.firestore.PropertyName
 
 data class PatronComunidad(
     val id: String = "",
-    @get:PropertyName("id_autor") val uidAutor: String = "",
+    @get:PropertyName("id_autor") @set:PropertyName("id_autor") var uidAutor: String = "",
     val nombreAutor: String = "",
     val fotoAutorUrl: String? = null,
     val nombre: String = "",
